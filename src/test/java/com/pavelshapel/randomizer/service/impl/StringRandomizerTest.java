@@ -23,7 +23,7 @@ class StringRandomizerTest {
         final String randomString = stringRandomizer.randomize();
 
         assertThat(randomString.length()).isBetween(
-                AbstractSpecification.DEFAULT_POSITIVE,
+                AbstractSpecification.DEFAULT_OFFSET,
                 AbstractSpecification.DEFAULT_MAX
         );
     }

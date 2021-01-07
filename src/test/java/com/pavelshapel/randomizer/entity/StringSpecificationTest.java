@@ -12,7 +12,7 @@ class StringSpecificationTest {
     void constructor_WithoutParams_ShouldReturnDefaultPojo() {
         final StringSpecification stringSpecification = new StringSpecification();
 
-        assertThat(stringSpecification.getMin()).isEqualTo(AbstractSpecification.DEFAULT_POSITIVE);
+        assertThat(stringSpecification.getMin()).isEqualTo(AbstractSpecification.DEFAULT_OFFSET);
         assertThat(stringSpecification.getMax()).isEqualTo(AbstractSpecification.DEFAULT_MAX);
         assertThat(stringSpecification.getGenericParameterClass()).isEqualTo(String.class);
     }

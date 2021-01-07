@@ -15,7 +15,7 @@ class DoubleSpecificationTest {
 
         assertThat(doubleSpecification.getMin()).isEqualTo(AbstractSpecification.DEFAULT_MIN);
         assertThat(doubleSpecification.getMax()).isEqualTo(AbstractSpecification.DEFAULT_MAX);
-        assertThat(doubleSpecification.getPrecision()).isEqualTo(AbstractSpecification.DEFAULT_POSITIVE);
+        assertThat(doubleSpecification.getPrecision()).isEqualTo(AbstractSpecification.DEFAULT_OFFSET);
         assertThat(doubleSpecification.getGenericParameterClass()).isEqualTo(Double.class);
     }
 
@@ -26,7 +26,7 @@ class DoubleSpecificationTest {
 
         assertThat(doubleSpecification.getMin()).isEqualTo(Math.min(min, max));
         assertThat(doubleSpecification.getMax()).isEqualTo(Math.max(min, max));
-        assertThat(doubleSpecification.getPrecision()).isEqualTo(AbstractSpecification.DEFAULT_POSITIVE);
+        assertThat(doubleSpecification.getPrecision()).isEqualTo(AbstractSpecification.DEFAULT_OFFSET);
         assertThat(doubleSpecification.getGenericParameterClass()).isEqualTo(Double.class);
     }
 
