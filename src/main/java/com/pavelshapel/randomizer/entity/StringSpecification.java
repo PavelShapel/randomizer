@@ -12,10 +12,10 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public final class StringSpecification extends AbstractSpecification<String> {
     public StringSpecification() {
-        this(DEFAULT_POSITIVE, DEFAULT_MAX);
+        this(DEFAULT_OFFSET, DEFAULT_MAX);
     }
 
     public StringSpecification(long min, long max) {
-        super(Math.max(DEFAULT_POSITIVE, min), Math.min(Integer.MAX_VALUE, max));
+        super(Math.max(DEFAULT_OFFSET, min), Math.min(Integer.MAX_VALUE, max));
     }
 }

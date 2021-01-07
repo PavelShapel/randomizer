@@ -15,7 +15,7 @@ import java.util.GregorianCalendar;
 public abstract class AbstractSpecification<T> {
     public static final long DEFAULT_MIN = new GregorianCalendar(1900, Calendar.JANUARY, 1).getTimeInMillis();
     public static final long DEFAULT_MAX = GregorianCalendar.getInstance().getTimeInMillis();
-    public static final long DEFAULT_POSITIVE = 2;
+    public static final long DEFAULT_OFFSET = 2;
 
     final Class<T> genericParameterClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     long min = DEFAULT_MIN;
