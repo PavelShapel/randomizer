@@ -20,8 +20,8 @@ class StringSpecificationTest {
     @ParameterizedTest
     @ArgumentsSource(TwoLongProvider.class)
     void constructor_WithAllParams_ShouldReturnPojo(long min, long max) {
-        final int verifiedMinBound = StringSpecification.getVerifiedBound(min);
-        final int verifiedMaxBound = StringSpecification.getVerifiedBound(max);
+        final int verifiedMinBound = AbstractSpecification.getVerifiedBound(min);
+        final int verifiedMaxBound = AbstractSpecification.getVerifiedBound(max);
         final long validMin = Math.min(verifiedMinBound, verifiedMaxBound);
         final long validMax = Math.max(verifiedMinBound, verifiedMaxBound);
 

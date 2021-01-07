@@ -26,4 +26,11 @@ public abstract class AbstractSpecification<T> {
         this.min = Math.min(min, max);
         this.max = Math.max(min, max);
     }
+
+    public static int getVerifiedBound(long bound) {
+        final long verifiedMinBound = Math.max(DEFAULT_MIN_BYTE, bound);
+        final long verifiedMaxBound = Math.min(DEFAULT_MAX_BYTE, verifiedMinBound);
+
+        return Math.toIntExact(verifiedMaxBound);
+    }
 }
