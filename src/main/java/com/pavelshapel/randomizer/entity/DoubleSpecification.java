@@ -9,7 +9,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 public final class DoubleSpecification extends AbstractSpecification<Double> {
-    long precision = DEFAULT_OFFSET;
+    long precision = DEFAULT_MIN_BYTE;
 
     public DoubleSpecification(long min, long max) {
         super(min, max);

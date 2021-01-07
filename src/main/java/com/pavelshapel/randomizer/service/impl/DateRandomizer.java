@@ -22,6 +22,7 @@ public class DateRandomizer implements BoundedRandomizer<Date> {
                 specification.getMin(),
                 specification.getMax()
         );
+
         return new Date(randomLong);
     }
 }

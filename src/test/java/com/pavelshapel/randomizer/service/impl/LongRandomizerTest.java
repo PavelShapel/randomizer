@@ -23,8 +23,8 @@ class LongRandomizerTest {
         final Long randomLong = longRandomizer.randomize();
 
         assertThat(randomLong).isBetween(
-                AbstractSpecification.DEFAULT_MIN,
-                AbstractSpecification.DEFAULT_MAX
+                AbstractSpecification.DEFAULT_MIN_LONG,
+                AbstractSpecification.DEFAULT_MAX_LONG
         );
     }
 
@@ -32,12 +32,14 @@ class LongRandomizerTest {
     @ArgumentsSource(TwoLongProvider.class)
     void randomize_WithBoundedSpecification_ShouldReturnLong(long min, long max) {
         final LongSpecification longSpecification = new LongSpecification(min, max);
+        final long validMin = longSpecification.getMin();
+        final long validMax = longSpecification.getMax();
 
         final Long randomLong = longRandomizer.randomize(longSpecification);
 
         assertThat(randomLong).isBetween(
-                Math.min(min, max),
-                Math.max(min, max)
+                validMin,
+                validMax
         );
     }
 }

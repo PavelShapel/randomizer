@@ -1,7 +1,7 @@
 package com.pavelshapel.randomizer.service.impl;
 
 import com.pavelshapel.randomizer.entity.AbstractSpecification;
-import com.pavelshapel.randomizer.entity.LongSpecification;
+import com.pavelshapel.randomizer.entity.StringSpecification;
 import com.pavelshapel.randomizer.provider.TwoLongProvider;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,25 +19,27 @@ class StringRandomizerTest {
     StringRandomizer stringRandomizer;
 
     @Test
-    void randomize_WithDefaultSpecification_ShouldReturnLong() {
+    void randomize_WithDefaultSpecification_ShouldReturnString() {
         final String randomString = stringRandomizer.randomize();
 
         assertThat(randomString.length()).isBetween(
-                AbstractSpecification.DEFAULT_OFFSET,
-                AbstractSpecification.DEFAULT_MAX
+                Math.toIntExact(AbstractSpecification.DEFAULT_MIN_BYTE),
+                Math.toIntExact(AbstractSpecification.DEFAULT_MAX_BYTE)
         );
     }
 
     @ParameterizedTest
     @ArgumentsSource(TwoLongProvider.class)
-    void randomize_WithBoundedSpecification_ShouldReturnLong(long min, long max) {
-        final LongSpecification longSpecification = new LongSpecification(min, max);
+    void randomize_WithBoundedSpecification_ShouldReturnString(long min, long max) {
+        StringSpecification stringSpecification = new StringSpecification(min, max);
+        final long validMin = stringSpecification.getMin();
+        final long validMax = stringSpecification.getMax();
 
-        final Long randomLong = stringRandomizer.randomize(longSpecification);
+        String randomString = stringRandomizer.randomize(stringSpecification);
 
-        assertThat(randomLong).isBetween(
-                Math.min(min, max),
-                Math.max(min, max)
+        assertThat(randomString.length()).isBetween(
+                Math.toIntExact(validMin),
+                Math.toIntExact(validMax)
         );
     }
 }

@@ -13,9 +13,9 @@ class DoubleSpecificationTest {
     void constructor_WithoutParams_ShouldReturnDefaultPojo() {
         final DoubleSpecification doubleSpecification = new DoubleSpecification();
 
-        assertThat(doubleSpecification.getMin()).isEqualTo(AbstractSpecification.DEFAULT_MIN);
-        assertThat(doubleSpecification.getMax()).isEqualTo(AbstractSpecification.DEFAULT_MAX);
-        assertThat(doubleSpecification.getPrecision()).isEqualTo(AbstractSpecification.DEFAULT_OFFSET);
+        assertThat(doubleSpecification.getMin()).isEqualTo(AbstractSpecification.DEFAULT_MIN_LONG);
+        assertThat(doubleSpecification.getMax()).isEqualTo(AbstractSpecification.DEFAULT_MAX_LONG);
+        assertThat(doubleSpecification.getPrecision()).isEqualTo(AbstractSpecification.DEFAULT_MIN_BYTE);
         assertThat(doubleSpecification.getGenericParameterClass()).isEqualTo(Double.class);
     }
 
@@ -24,19 +24,25 @@ class DoubleSpecificationTest {
     void constructor_WithTwoParams_ShouldReturnPojo(long min, long max) {
         final DoubleSpecification doubleSpecification = new DoubleSpecification(min, max);
 
-        assertThat(doubleSpecification.getMin()).isEqualTo(Math.min(min, max));
-        assertThat(doubleSpecification.getMax()).isEqualTo(Math.max(min, max));
-        assertThat(doubleSpecification.getPrecision()).isEqualTo(AbstractSpecification.DEFAULT_OFFSET);
+        final long validMin = Math.min(min, max);
+        final long validMax = Math.max(min, max);
+
+        assertThat(doubleSpecification.getMin()).isEqualTo(validMin);
+        assertThat(doubleSpecification.getMax()).isEqualTo(validMax);
+        assertThat(doubleSpecification.getPrecision()).isEqualTo(AbstractSpecification.DEFAULT_MIN_BYTE);
         assertThat(doubleSpecification.getGenericParameterClass()).isEqualTo(Double.class);
     }
 
     @ParameterizedTest
     @ArgumentsSource(ThreeLongProvider.class)
     void constructor_WithAllParams_ShouldReturnPojo(long min, long max, long precision) {
+        final long validMin = Math.min(min, max);
+        final long validMax = Math.max(min, max);
+
         final DoubleSpecification doubleSpecification = new DoubleSpecification(min, max, precision);
 
-        assertThat(doubleSpecification.getMin()).isEqualTo(Math.min(min, max));
-        assertThat(doubleSpecification.getMax()).isEqualTo(Math.max(min, max));
+        assertThat(doubleSpecification.getMin()).isEqualTo(validMin);
+        assertThat(doubleSpecification.getMax()).isEqualTo(validMax);
         assertThat(doubleSpecification.getPrecision()).isEqualTo(precision);
         assertThat(doubleSpecification.getGenericParameterClass()).isEqualTo(Double.class);
     }

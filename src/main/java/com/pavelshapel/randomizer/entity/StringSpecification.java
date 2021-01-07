@@ -12,10 +12,17 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public final class StringSpecification extends AbstractSpecification<String> {
     public StringSpecification() {
-        this(DEFAULT_OFFSET, DEFAULT_MAX);
+        super(DEFAULT_MIN_BYTE, DEFAULT_MAX_BYTE);
     }
 
     public StringSpecification(long min, long max) {
-        super(Math.max(DEFAULT_OFFSET, min), Math.min(Integer.MAX_VALUE, max));
+        super(getVerifiedBound(min), getVerifiedBound(max));
+    }
+
+    public static int getVerifiedBound(long bound) {
+        final long verifiedMinBound = Math.max(DEFAULT_MIN_BYTE, bound);
+        final long verifiedMaxBound = Math.min(DEFAULT_MAX_BYTE, verifiedMinBound);
+
+        return Math.toIntExact(verifiedMaxBound);
     }
 }

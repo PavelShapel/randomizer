@@ -20,6 +20,7 @@ public class DoubleRandomizer implements BoundedRandomizer<Double> {
     @Override
     public Double randomize(@NonNull AbstractSpecification<Double> specification) {
         final DoubleSpecification doubleSpecification = (DoubleSpecification) specification;
+
         final double randomDouble = ThreadLocalRandom.current().nextDouble(
                 doubleSpecification.getMin(),
                 doubleSpecification.getMax()
@@ -28,6 +29,7 @@ public class DoubleRandomizer implements BoundedRandomizer<Double> {
                 Math.toIntExact(doubleSpecification.getPrecision()),
                 RoundingMode.HALF_UP
         );
+
         return scaledBigDecimal.doubleValue();
     }
 }
