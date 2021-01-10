@@ -27,6 +27,7 @@ class DoubleRandomizerTest {
                 DEFAULT_LONG_RANGE.getValue().getMinimum().doubleValue(),
                 DEFAULT_LONG_RANGE.getValue().getMaximum().doubleValue()
         );
+        assertThat(doubleRandomizer.getGenericParameterClass()).isEqualTo(Double.class);
     }
 
     @ParameterizedTest

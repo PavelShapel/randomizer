@@ -27,6 +27,7 @@ class StringRandomizerTest {
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum().intValue(),
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum().intValue()
         );
+        assertThat(stringRandomizer.getGenericParameterClass()).isEqualTo(String.class);
     }
 
     @ParameterizedTest

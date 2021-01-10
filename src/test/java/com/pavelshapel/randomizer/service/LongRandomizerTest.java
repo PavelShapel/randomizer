@@ -27,6 +27,7 @@ class LongRandomizerTest {
                 DEFAULT_LONG_RANGE.getValue().getMinimum(),
                 DEFAULT_LONG_RANGE.getValue().getMaximum()
         );
+        assertThat(longRandomizer.getGenericParameterClass()).isEqualTo(Long.class);
     }
 
     @ParameterizedTest

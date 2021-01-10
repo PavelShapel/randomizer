@@ -29,6 +29,7 @@ class DateRandomizerTest {
                 DEFAULT_LONG_RANGE.getValue().getMinimum(),
                 DEFAULT_LONG_RANGE.getValue().getMaximum()
         );
+        assertThat(dateRandomizer.getGenericParameterClass()).isEqualTo(Date.class);
     }
 
     @ParameterizedTest

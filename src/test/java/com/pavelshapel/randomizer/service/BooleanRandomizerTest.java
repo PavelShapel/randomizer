@@ -19,5 +19,6 @@ class BooleanRandomizerTest {
         final Boolean randomBoolean = booleanRandomizer.randomize();
 
         assertThat(randomBoolean).isIn(false, true);
+        assertThat(booleanRandomizer.getGenericParameterClass()).isEqualTo(Boolean.class);
     }
 }
