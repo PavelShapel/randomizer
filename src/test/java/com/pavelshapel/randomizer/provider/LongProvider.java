@@ -1,5 +1,8 @@
 package com.pavelshapel.randomizer.provider;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
@@ -9,17 +12,18 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
+@FieldDefaults(
+        makeFinal = true,
+        level = AccessLevel.PRIVATE
+)
+@AllArgsConstructor
 public abstract class LongProvider implements ArgumentsProvider {
-    private final int argumentsCount;
-    private int iterationsCount = 10;
+    int argumentsCount;
+    int iterationsCount;
 
     public LongProvider(int argumentsCount) {
         this.argumentsCount = argumentsCount;
-    }
-
-    public LongProvider(int argumentsCount, int iterationsCount) {
-        this.argumentsCount = argumentsCount;
-        this.iterationsCount = iterationsCount;
+        this.iterationsCount = 10;
     }
 
     @Override
