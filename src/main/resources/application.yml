@@ -1,1 +1,40 @@
-
+management:
+  endpoint:
+    health:
+      show-details: always
+      status:
+        http-mapping:
+          down: 500
+          out_of_service: 503
+          warning: 500
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    probes:
+      enabled: true
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          servlet:
+            DispatcherServlet: INFO
+    root: INFO
+  pattern:
+    console: "%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{0}.%method - %message%n"
+server:
+  error:
+    whitelabel:
+      enabled: false
+  port: 54321
+spring:
+  application:
+    name: randomizer
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
