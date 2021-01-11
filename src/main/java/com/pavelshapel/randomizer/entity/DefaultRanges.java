@@ -25,6 +25,12 @@ public enum DefaultRanges {
                     DEFAULT_MIN_POSITIVE_BYTE.getValue(),
                     DEFAULT_MAX_POSITIVE_BYTE.getValue()
             )
+    ),
+    DEFAULT_YEAR_RANGE(
+            Range.between(
+                    DEFAULT_MIN_YEAR.getValue(),
+                    DEFAULT_MAX_YEAR.getValue()
+            )
     );
 
     Range<Long> value;
