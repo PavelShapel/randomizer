@@ -12,24 +12,24 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.util.Date;
 
-import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_LONG_RANGE;
+import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_DATE_RANGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ContextConfiguration(classes = DateRandomizer.class)
 class DateRandomizerTest {
     @Autowired
-    DateRandomizer dateRandomizer;
+    DateRandomizer randomizer;
 
     @Test
     void randomize_WithDefaultRange_ShouldReturnDate() {
-        final Date randomDate = dateRandomizer.randomize();
+        final Date randomDate = randomizer.randomize();
 
         assertThat(randomDate.getTime()).isBetween(
-                DEFAULT_LONG_RANGE.getValue().getMinimum(),
-                DEFAULT_LONG_RANGE.getValue().getMaximum()
+                DEFAULT_DATE_RANGE.getValue().getMinimum(),
+                DEFAULT_DATE_RANGE.getValue().getMaximum()
         );
-        assertThat(dateRandomizer.getGenericParameterClass()).isEqualTo(Date.class);
+        assertThat(randomizer.getGenericParameterClass()).isEqualTo(Date.class);
     }
 
     @ParameterizedTest
@@ -37,11 +37,8 @@ class DateRandomizerTest {
     void randomize_WithBoundedRange_ShouldReturnDate(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
-        final Date randomDate = dateRandomizer.randomize(range);
+        final Date randomDate = randomizer.randomize(range);
 
-        assertThat(randomDate.getTime()).isBetween(
-                range.getMinimum(),
-                range.getMaximum()
-        );
+        assertThat(randomDate).isInstanceOf(Date.class);
     }
 }

@@ -1,6 +1,6 @@
 package com.pavelshapel.randomizer.service.randomizer;
 
-import com.pavelshapel.randomizer.service.BoundedRandomizer;
+import com.pavelshapel.randomizer.service.Randomizer;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.Range;
 import org.springframework.stereotype.Service;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_BYTE_RANGE;
 
 @Service
-public final class StringRandomizer extends BoundedRandomizer<String> {
+public final class StringRandomizer extends Randomizer<String> {
     @Override
     public String randomize() {
         return randomize(DEFAULT_POSITIVE_BYTE_RANGE.getValue());
@@ -16,13 +16,12 @@ public final class StringRandomizer extends BoundedRandomizer<String> {
 
     @Override
     protected String randomizeRange(Range<Long> range) {
-        return RandomStringUtils.randomAlphanumeric(
-                Math.toIntExact(fitPositiveByteRange(range.getMinimum())),
-                Math.toIntExact(fitPositiveByteRange(range.getMaximum()))
-        );
-    }
+        final Range<Long> intersectionWithPositiveByteRange =
+                DEFAULT_POSITIVE_BYTE_RANGE.getValue().intersectionWith(range);
 
-    private long fitPositiveByteRange(long value) {
-        return DEFAULT_POSITIVE_BYTE_RANGE.getValue().fit(value);
+        return RandomStringUtils.randomAlphanumeric(
+                intersectionWithPositiveByteRange.getMinimum().intValue(),
+                intersectionWithPositiveByteRange.getMaximum().intValue()
+        );
     }
 }

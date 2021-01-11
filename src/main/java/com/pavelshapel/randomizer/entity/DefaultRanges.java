@@ -7,6 +7,9 @@ import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.Range;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import static com.pavelshapel.randomizer.entity.ConstantsRange.*;
 
 @Getter
@@ -30,6 +33,20 @@ public enum DefaultRanges {
             Range.between(
                     DEFAULT_MIN_YEAR.getValue(),
                     DEFAULT_MAX_YEAR.getValue()
+            )
+    ),
+    DEFAULT_DATE_RANGE(
+            Range.between(
+                    new GregorianCalendar(
+                            Math.toIntExact(DEFAULT_MIN_YEAR.getValue()),
+                            Calendar.JANUARY,
+                            1
+                    ).getTimeInMillis(),
+                    new GregorianCalendar(
+                            Math.toIntExact(DEFAULT_MAX_YEAR.getValue()),
+                            Calendar.DECEMBER,
+                            31
+                    ).getTimeInMillis()
             )
     );
 

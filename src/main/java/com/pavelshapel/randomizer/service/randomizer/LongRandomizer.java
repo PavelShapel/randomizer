@@ -1,6 +1,6 @@
 package com.pavelshapel.randomizer.service.randomizer;
 
-import com.pavelshapel.randomizer.service.BoundedRandomizer;
+import com.pavelshapel.randomizer.service.Randomizer;
 import org.apache.commons.lang3.Range;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_LONG_RANGE;
 
 @Service
-public final class LongRandomizer extends BoundedRandomizer<Long> {
+public final class LongRandomizer extends Randomizer<Long> {
     @Override
     public Long randomize() {
         return randomize(DEFAULT_LONG_RANGE.getValue());

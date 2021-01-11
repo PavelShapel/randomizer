@@ -17,17 +17,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ContextConfiguration(classes = StringRandomizer.class)
 class StringRandomizerTest {
     @Autowired
-    StringRandomizer stringRandomizer;
+    StringRandomizer randomizer;
 
     @Test
     void randomize_WithDefaultRange_ShouldReturnString() {
-        final String randomString = stringRandomizer.randomize();
+        final String randomString = randomizer.randomize();
 
         assertThat(randomString.length()).isBetween(
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum().intValue(),
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum().intValue()
         );
-        assertThat(stringRandomizer.getGenericParameterClass()).isEqualTo(String.class);
+        assertThat(randomizer.getGenericParameterClass()).isEqualTo(String.class);
     }
 
     @ParameterizedTest
@@ -35,7 +35,7 @@ class StringRandomizerTest {
     void randomize_WithBoundedSpecification_ShouldReturnString(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
-        String randomString = stringRandomizer.randomize(range);
+        String randomString = randomizer.randomize(range);
 
         assertThat(randomString.length()).isBetween(
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum().intValue(),

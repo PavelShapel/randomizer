@@ -17,17 +17,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ContextConfiguration(classes = LongRandomizer.class)
 class LongRandomizerTest {
     @Autowired
-    LongRandomizer longRandomizer;
+    LongRandomizer randomizer;
 
     @Test
     void randomize_WithDefaultRange_ShouldReturnLong() {
-        final Long randomLong = longRandomizer.randomize();
+        final Long randomLong = randomizer.randomize();
 
         assertThat(randomLong).isBetween(
                 DEFAULT_LONG_RANGE.getValue().getMinimum(),
                 DEFAULT_LONG_RANGE.getValue().getMaximum()
         );
-        assertThat(longRandomizer.getGenericParameterClass()).isEqualTo(Long.class);
+        assertThat(randomizer.getGenericParameterClass()).isEqualTo(Long.class);
     }
 
     @ParameterizedTest
@@ -35,7 +35,7 @@ class LongRandomizerTest {
     void randomize_WithBoundedRange_ShouldReturnLong(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
-        final Long randomLong = longRandomizer.randomize(range);
+        final Long randomLong = randomizer.randomize(range);
 
         assertThat(randomLong).isBetween(
                 range.getMinimum(),

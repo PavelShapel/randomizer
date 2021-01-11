@@ -2,6 +2,8 @@ package com.pavelshapel.randomizer.provider;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
@@ -12,6 +14,8 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
+@ToString
+@EqualsAndHashCode
 @FieldDefaults(
         makeFinal = true,
         level = AccessLevel.PRIVATE

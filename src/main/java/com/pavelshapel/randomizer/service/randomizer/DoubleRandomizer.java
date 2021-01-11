@@ -1,6 +1,6 @@
 package com.pavelshapel.randomizer.service.randomizer;
 
-import com.pavelshapel.randomizer.service.BoundedRandomizer;
+import com.pavelshapel.randomizer.service.Randomizer;
 import org.apache.commons.lang3.Range;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_LONG_RANGE
 import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_BYTE_RANGE;
 
 @Service
-public final class DoubleRandomizer extends BoundedRandomizer<Double> {
+public final class DoubleRandomizer extends Randomizer<Double> {
     @Override
     public Double randomize() {
         return randomize(DEFAULT_LONG_RANGE.getValue());
@@ -34,8 +34,8 @@ public final class DoubleRandomizer extends BoundedRandomizer<Double> {
 
     private int getRandomizedScale() {
         return ThreadLocalRandom.current().nextInt(
-                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum().byteValue(),
-                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum().byteValue()
+                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum().intValue(),
+                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum().intValue()
         );
     }
 }
