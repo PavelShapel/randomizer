@@ -22,8 +22,8 @@ logging:
       springframework:
         web:
           servlet:
-            DispatcherServlet: INFO
-    root: INFO
+            DispatcherServlet: DEBUG
+    root: DEBUG
   pattern:
     console: "%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{0}.%method - %message%n"
 server:
