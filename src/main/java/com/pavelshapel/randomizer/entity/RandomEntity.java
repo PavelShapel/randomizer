@@ -1,14 +1,13 @@
 package com.pavelshapel.randomizer.entity;
 
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Value
-@Builder
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class RandomEntity<T> {
-    @NonNull
     T value;
-    @NonNull
     Class<?> type;
 }
