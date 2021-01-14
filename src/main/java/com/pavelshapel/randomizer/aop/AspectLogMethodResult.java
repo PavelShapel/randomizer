@@ -29,20 +29,6 @@ public class AspectLogMethodResult {
     public void callLogMethodResult() {
     }
 
-//    @Around("callLogMethodResult()")
-//    public Object logMethodResult(ProceedingJoinPoint joinPoint) {
-//        initializeMethodSpecification(joinPoint);
-//
-//        try {
-//            final Object proceed = joinPoint.proceed();
-//            logSuccess(proceed);
-//            return proceed;
-//        } catch (Throwable throwable) {
-//            logException(throwable);
-//            return null;
-//        }
-//    }
-
     @AfterReturning(pointcut = "callLogMethodResult()", returning = "result")
     private void onSuccess(JoinPoint joinPoint, Object result) {
         initializeMethodSpecification(joinPoint);
