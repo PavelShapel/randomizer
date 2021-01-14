@@ -1,6 +1,5 @@
 package com.pavelshapel.randomizer.service.randomizer;
 
-import com.pavelshapel.randomizer.service.Randomizer;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.Range;
 import org.springframework.stereotype.Service;
