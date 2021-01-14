@@ -9,6 +9,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.Range;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_BYTE_RANGE;
 
 @Slf4j
 @FieldDefaults(
@@ -39,6 +45,17 @@ public abstract class Randomizer<T> {
 
     public RandomEntity<T> getRandomEntity() {
         return new RandomEntity<>(randomize(), genericParameterClass);
+    }
+
+    public List<RandomEntity<T>> getRandomEntityList() {
+        final long collectionSize = ThreadLocalRandom.current().nextLong(
+                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum(),
+                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum()
+        );
+
+        return Stream.generate(this::getRandomEntity)
+                .limit(collectionSize)
+                .collect(Collectors.toList());
     }
 
     public abstract T randomize();
