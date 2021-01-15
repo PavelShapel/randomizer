@@ -16,7 +16,7 @@ LABEL MAINTAINER="pavel.shapel@gmail.com"
 LABEL SERVICE="as-album"
 RUN apk update && apk upgrade && apk add bash
 WORKDIR application
-EXPOSE 8080
+EXPOSE 8882
 COPY --from=builder application/dependencies/ ./
 COPY --from=builder application/spring-boot-loader/ ./
 COPY --from=builder application/snapshot-dependencies/ ./

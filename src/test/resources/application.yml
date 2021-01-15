@@ -30,7 +30,7 @@ server:
   error:
     whitelabel:
       enabled: false
-  port: 8080
+  port: 8882
 spring:
   application:
     name: randomizer
