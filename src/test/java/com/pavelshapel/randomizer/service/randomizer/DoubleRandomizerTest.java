@@ -71,7 +71,7 @@ class DoubleRandomizerTest {
     }
 
     @Test
-    void getRandomEntityList_WithDefaultRange_ShouldReturnRandomEntity() {
+    void getRandomEntityList_WithDefaultRange_ShouldReturnRandomEntityList() {
         final List<RandomEntity<Double>> randomEntityList = randomizer.getRandomEntityList();
 
         assertThat(randomEntityList.size()).isBetween(

@@ -58,7 +58,7 @@ class BooleanRandomizerTest {
     }
 
     @Test
-    void getRandomEntityList_WithDefaultRange_ShouldReturnRandomEntity() {
+    void getRandomEntityList_WithDefaultRange_ShouldReturnRandomEntityList() {
         final List<RandomEntity<Boolean>> randomEntityList = randomizer.getRandomEntityList();
 
         assertThat(randomEntityList.size()).isBetween(

@@ -71,7 +71,7 @@ class LongRandomizerTest {
     }
 
     @Test
-    void getRandomEntityList_WithDefaultRange_ShouldReturnRandomEntity() {
+    void getRandomEntityList_WithDefaultRange_ShouldReturnRandomEntityList() {
         final List<RandomEntity<Long>> randomEntityList = randomizer.getRandomEntityList();
 
         assertThat(randomEntityList.size()).isBetween(

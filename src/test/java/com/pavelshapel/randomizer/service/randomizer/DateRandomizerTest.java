@@ -65,7 +65,7 @@ class DateRandomizerTest {
     }
 
     @Test
-    void getRandomEntityList_WithDefaultRange_ShouldReturnRandomEntity() {
+    void getRandomEntityList_WithDefaultRange_ShouldReturnRandomEntityList() {
         final List<RandomEntity<Date>> randomEntityList = randomizer.getRandomEntityList();
 
         assertThat(randomEntityList.size()).isBetween(
