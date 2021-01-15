@@ -1,10 +1,12 @@
 package com.pavelshapel.randomizer.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Getter
+@EqualsAndHashCode
+@ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
 public class RandomEntity<T> {
