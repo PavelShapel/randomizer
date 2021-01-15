@@ -49,7 +49,7 @@ public class AspectLogMethodResult {
     }
 
     private void logSuccess(Object result) {
-        if (!logResponseEntity(result)) {
+        if (!logResponseEntityError(result)) {
             log.info(
                     LOG_PATTERN,
                     methodSpecification.getDeclaringClassName(),
@@ -60,7 +60,7 @@ public class AspectLogMethodResult {
         }
     }
 
-    private boolean logResponseEntity(Object result) {
+    private boolean logResponseEntityError(Object result) {
         if (result instanceof ResponseEntity) {
             final ResponseEntity<?> responseEntity = (ResponseEntity<?>) result;
 
