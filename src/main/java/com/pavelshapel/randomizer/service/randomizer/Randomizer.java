@@ -1,11 +1,7 @@
 package com.pavelshapel.randomizer.service.randomizer;
 
 import com.pavelshapel.randomizer.entity.RandomEntity;
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.Range;
 
 import java.lang.reflect.ParameterizedType;
@@ -16,15 +12,13 @@ import java.util.stream.Stream;
 
 import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_BYTE_RANGE;
 
-@Slf4j
-@FieldDefaults(
-        makeFinal = true,
-        level = AccessLevel.PRIVATE
-)
-@ToString
-@EqualsAndHashCode
+@Log4j2
 public abstract class Randomizer<T> {
-    Class<?> genericParameterClass = (Class<?>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    Class<T> genericParameterClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+
+    public abstract T randomize();
+
+    protected abstract T randomizeRange(Range<Long> range);
 
     public T randomize(Range<Long> range) {
         try {
@@ -57,8 +51,4 @@ public abstract class Randomizer<T> {
                 .limit(collectionSize)
                 .collect(Collectors.toList());
     }
-
-    public abstract T randomize();
-
-    protected abstract T randomizeRange(Range<Long> range);
 }
