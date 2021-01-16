@@ -26,7 +26,7 @@ public class PojoRestController {
 
     @LogMethodResult
     @GetMapping
-    protected ResponseEntity<Map<String, Object>> randomizePojo(@RequestBody Map<String, Object> pojo) {
+    public ResponseEntity<Map<String, Object>> randomizePojo(@RequestBody Map<String, Object> pojo) {
         final HashMap<String, Object> response = new HashMap<>();
         pojo.forEach((key, value) -> response.put(key, getRandomValueByClassName(value.toString())));
 
