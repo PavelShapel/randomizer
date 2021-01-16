@@ -11,8 +11,8 @@ import java.util.GregorianCalendar;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 public enum ConstantsRange {
-    DEFAULT_MIN_YEAR(1900),
-    DEFAULT_MAX_YEAR(GregorianCalendar.getInstance().get(Calendar.YEAR)),
+    DEFAULT_MIN_YEAR(1000),
+    DEFAULT_MAX_YEAR(3000),
 
     DEFAULT_MIN_LONG(new GregorianCalendar(
             Math.toIntExact(DEFAULT_MIN_YEAR.getValue()),

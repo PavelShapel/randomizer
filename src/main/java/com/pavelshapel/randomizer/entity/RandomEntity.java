@@ -11,5 +11,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 public class RandomEntity<T> {
     T value;
-    Class<?> type;
+    Class<T> type;
 }
+
+
