@@ -34,10 +34,14 @@ public class PojoRestController {
     }
 
     private Object getRandomValueByClassName(String className) {
-        final String beanName = Arrays.stream(
-                context.getBeanNamesForType(getResolvableTypeForClassWithGenerics(className))
-        ).collect(toSingleton());
-        return ((Randomizer<?>) context.getBean(beanName)).randomize();
+        try {
+            final String beanName = Arrays.stream(
+                    context.getBeanNamesForType(getResolvableTypeForClassWithGenerics(className))
+            ).collect(toSingleton());
+            return ((Randomizer<?>) context.getBean(beanName)).randomize();
+        } catch (Exception exception) {
+            return exception.toString();
+        }
     }
 
     @SneakyThrows
