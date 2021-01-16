@@ -8,6 +8,8 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LogMethodResult {
+    String logLevel() default "INFO";
+
     String successPrefix() default "returned value";
 
     String exceptionPrefix() default "threw an exception";

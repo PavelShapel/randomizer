@@ -3,8 +3,9 @@ package com.pavelshapel.randomizer.aop;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.Level;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-@Slf4j
+@Log4j2
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 public class AspectLogMethodResult {
@@ -50,7 +51,8 @@ public class AspectLogMethodResult {
 
     private void logSuccess(Object result) {
         if (!logResponseEntityError(result)) {
-            log.info(
+            final Level level = Level.toLevel(methodSpecification.getLogMethodResult().logLevel());
+            log.log(level,
                     LOG_PATTERN,
                     methodSpecification.getDeclaringClassName(),
                     methodSpecification.getName(),
