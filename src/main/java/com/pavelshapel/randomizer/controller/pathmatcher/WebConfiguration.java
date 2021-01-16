@@ -1,0 +1,25 @@
+//package com.pavelshapel.randomizer.controller.pathmatcher;
+//
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.util.PathMatcher;
+//import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+//import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+//
+//@Configuration
+//public class WebConfiguration extends WebMvcConfigurationSupport {
+//
+//    @Bean
+//    public PathMatcher pathMatcher() {
+//        return new CaseInsensitivePathMatcher();
+//    }
+//
+//    @Bean
+//    public RequestMappingHandlerMapping requestMappingHandlerMapping() {
+//        RequestMappingHandlerMapping handlerMapping = new RequestMappingHandlerMapping();
+//        handlerMapping.setOrder(0);
+//        handlerMapping.setInterceptors(getInterceptors());
+//        handlerMapping.setPathMatcher(pathMatcher());
+//        return handlerMapping;
+//    }
+//}
