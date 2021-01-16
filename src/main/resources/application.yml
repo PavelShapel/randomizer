@@ -1,6 +1,7 @@
 management:
   endpoint:
     health:
+      enabled: true
       show-details: always
       status:
         http-mapping:
@@ -9,7 +10,10 @@ management:
           warning: 500
     shutdown:
       enabled: true
+    mappings:
+      enabled: true
   endpoints:
+    enabled-by-default: false
     web:
       exposure:
         include: "*"
@@ -28,6 +32,7 @@ logging:
     console: "%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{0}.%method - %message%n"
 server:
   error:
+#    path: "/error"
     whitelabel:
       enabled: false
   port: 8882
@@ -38,3 +43,5 @@ spring:
     throw-exception-if-no-handler-found: true
   resources:
     add-mappings: false
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
