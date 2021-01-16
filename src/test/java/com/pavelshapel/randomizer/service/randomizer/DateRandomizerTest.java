@@ -13,8 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import java.util.Date;
 import java.util.List;
 
-import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_DATE_RANGE;
-import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_BYTE_RANGE;
+import static com.pavelshapel.randomizer.entity.DefaultRanges.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -28,8 +27,8 @@ class DateRandomizerTest {
         final Date randomDate = randomizer.randomize();
 
         assertThat(randomDate.getTime()).isBetween(
-                DEFAULT_DATE_RANGE.getValue().getMinimum(),
-                DEFAULT_DATE_RANGE.getValue().getMaximum()
+                DEFAULT_LONG_RANGE.getValue().getMinimum(),
+                DEFAULT_LONG_RANGE.getValue().getMaximum()
         );
     }
 
@@ -48,8 +47,8 @@ class DateRandomizerTest {
         final RandomEntity<Date> randomEntity = randomizer.getRandomEntity();
 
         assertThat(randomEntity.getValue().getTime()).isBetween(
-                DEFAULT_DATE_RANGE.getValue().getMinimum(),
-                DEFAULT_DATE_RANGE.getValue().getMaximum()
+                DEFAULT_LONG_RANGE.getValue().getMinimum(),
+                DEFAULT_LONG_RANGE.getValue().getMaximum()
         );
         assertThat(randomEntity.getType()).isEqualTo(Date.class);
     }
