@@ -28,6 +28,7 @@ public class AspectLogMethodResult {
 
     @Pointcut("@annotation(LogMethodResult)")
     public void callLogMethodResult() {
+        //pointcut
     }
 
     @AfterReturning(pointcut = "callLogMethodResult()", returning = "result")
