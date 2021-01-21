@@ -17,7 +17,8 @@ public final class RandomEntityRandomizer<T> implements Randomizer<RandomEntity<
     @Autowired
     public RandomEntityRandomizer(PrimitiveRandomizer<T> primitiveRandomizer) {
         this.primitiveRandomizer = primitiveRandomizer;
-        final ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
+        final ParameterizedType genericSuperclass = (ParameterizedType) this.primitiveRandomizer
+                .getClass().getGenericSuperclass();
         this.genericParameterClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
     }
 
