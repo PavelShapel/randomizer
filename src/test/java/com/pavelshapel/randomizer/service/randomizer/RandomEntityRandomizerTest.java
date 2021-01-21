@@ -1,5 +1,6 @@
 package com.pavelshapel.randomizer.service.randomizer;
 
+import com.pavelshapel.randomizer.entity.RandomEntity;
 import com.pavelshapel.randomizer.provider.TwoParametersLongProvider;
 import org.apache.commons.lang3.Range;
 import org.junit.jupiter.api.Test;
@@ -16,43 +17,47 @@ import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_B
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@ContextConfiguration(classes = LongRandomizer.class)
-class LongRandomizerTest {
-    private final LongRandomizer longRandomizer;
+@ContextConfiguration(classes = {
+        RandomEntityRandomizer.class,
+        LongRandomizer.class})
+class RandomEntityRandomizerTest {
+    private final RandomEntityRandomizer<Long> randomEntityRandomizer;
 
     @Autowired
-    LongRandomizerTest(LongRandomizer longRandomizer) {
-        this.longRandomizer = longRandomizer;
+    RandomEntityRandomizerTest(RandomEntityRandomizer<Long> randomEntityRandomizer) {
+        this.randomEntityRandomizer = randomEntityRandomizer;
     }
 
     @Test
-    void randomize_WithDefaultRange_ShouldReturnLong() {
-        final Long randomLong = longRandomizer.randomize();
+    void randomize_WithDefaultRange_ShouldReturnRandomEntity() {
+        final RandomEntity<Long> randomEntity = randomEntityRandomizer.randomize();
 
-        assertThat(randomLong).isBetween(
+        assertThat(randomEntity.getValue()).isBetween(
                 DEFAULT_LONG_RANGE.getValue().getMinimum(),
                 DEFAULT_LONG_RANGE.getValue().getMaximum()
         );
+        assertThat(randomEntity.getType()).isEqualTo(Long.class);
     }
 
     @ParameterizedTest
     @ArgumentsSource(TwoParametersLongProvider.class)
-    void randomize_WithBoundedRange_ShouldReturnLong(long min, long max) {
+    void randomize_WithBoundedRange_ShouldReturnRandomEntity(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
-        final Long randomLong = longRandomizer.randomize(range);
+        final RandomEntity<Long> randomEntity = randomEntityRandomizer.randomize(range);
 
-        assertThat(randomLong).isBetween(
+        assertThat(randomEntity.getValue()).isBetween(
                 range.getMinimum(),
                 range.getMaximum()
         );
+        assertThat(randomEntity.getType()).isEqualTo(Long.class);
     }
 
     @Test
     void randomizeCollection_ShouldReturnCollection() {
-        final Collection<Long> randomCollection = longRandomizer.randomizeCollection();
+        final Collection<RandomEntity<Long>> randomEntityCollection = randomEntityRandomizer.randomizeCollection();
 
-        assertThat(randomCollection.size()).isBetween(
+        assertThat(randomEntityCollection.size()).isBetween(
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum().intValue(),
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum().intValue()
         );
