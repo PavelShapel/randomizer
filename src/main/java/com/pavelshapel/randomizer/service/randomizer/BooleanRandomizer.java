@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
-public final class BooleanRandomizer extends Randomizer<Boolean> {
+public final class BooleanRandomizer extends PrimitiveRandomizer<Boolean> {
     @Override
     public Boolean randomize() {
         return ThreadLocalRandom.current().nextBoolean();

@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_YEAR_RANGE;
 
 @Service
-public final class DateRandomizer extends Randomizer<Date> {
+public final class DateRandomizer extends PrimitiveRandomizer<Date> {
     @Override
     public Date randomize() {
         return randomize(DEFAULT_YEAR_RANGE.getValue());

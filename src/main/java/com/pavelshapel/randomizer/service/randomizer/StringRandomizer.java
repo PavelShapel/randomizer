@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_BYTE_RANGE;
 
 @Service
-public final class StringRandomizer extends Randomizer<String> {
+public final class StringRandomizer extends PrimitiveRandomizer<String> {
     @Override
     public String randomize() {
         return randomize(DEFAULT_POSITIVE_BYTE_RANGE.getValue());

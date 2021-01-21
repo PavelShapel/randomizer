@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_LONG_RANGE;
 
 @Service
-public final class LongRandomizer extends Randomizer<Long> {
+public final class LongRandomizer extends PrimitiveRandomizer<Long> {
     @Override
     public Long randomize() {
         return randomize(DEFAULT_LONG_RANGE.getValue());
