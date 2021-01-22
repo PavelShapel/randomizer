@@ -1,7 +1,6 @@
 package com.pavelshapel.randomizer.provider;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
@@ -20,7 +19,6 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
         makeFinal = true,
         level = AccessLevel.PRIVATE
 )
-@AllArgsConstructor
 public abstract class LongProvider implements ArgumentsProvider {
     int argumentsCount;
     int iterationsCount;
