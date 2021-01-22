@@ -1,5 +1,6 @@
-package com.pavelshapel.randomizer.service.randomizer;
+package com.pavelshapel.randomizer.service.randomizer.primitive;
 
+import com.pavelshapel.randomizer.service.randomizer.Randomizer;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.Range;
 

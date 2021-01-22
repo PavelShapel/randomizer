@@ -1,4 +1,4 @@
-package com.pavelshapel.randomizer.service.randomizer;
+package com.pavelshapel.randomizer.service.randomizer.primitive;
 
 import org.apache.commons.lang3.Range;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_YEAR_RANGE;
 
 @Service
-public final class DateRandomizer extends PrimitiveRandomizer<Date> {
+public final class DatePrimitiveRandomizer extends PrimitiveRandomizer<Date> {
     @Override
     public Date randomize() {
         return randomize(DEFAULT_YEAR_RANGE.getValue());

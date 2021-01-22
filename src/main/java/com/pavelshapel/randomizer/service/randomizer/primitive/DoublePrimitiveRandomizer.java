@@ -1,4 +1,4 @@
-package com.pavelshapel.randomizer.service.randomizer;
+package com.pavelshapel.randomizer.service.randomizer.primitive;
 
 import org.apache.commons.lang3.Range;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_LONG_RANGE
 import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_BYTE_RANGE;
 
 @Service
-public final class DoubleRandomizer extends PrimitiveRandomizer<Double> {
+public final class DoublePrimitiveRandomizer extends PrimitiveRandomizer<Double> {
     @Override
     public Double randomize() {
         return randomize(DEFAULT_LONG_RANGE.getValue());

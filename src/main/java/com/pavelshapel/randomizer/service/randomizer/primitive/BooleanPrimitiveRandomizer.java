@@ -1,4 +1,4 @@
-package com.pavelshapel.randomizer.service.randomizer;
+package com.pavelshapel.randomizer.service.randomizer.primitive;
 
 import org.apache.commons.lang3.Range;
 import org.springframework.stereotype.Service;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
-public final class BooleanRandomizer extends PrimitiveRandomizer<Boolean> {
+public final class BooleanPrimitiveRandomizer extends PrimitiveRandomizer<Boolean> {
     @Override
     public Boolean randomize() {
         return ThreadLocalRandom.current().nextBoolean();

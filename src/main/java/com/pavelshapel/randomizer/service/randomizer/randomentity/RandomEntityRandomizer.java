@@ -1,21 +1,19 @@
-package com.pavelshapel.randomizer.service.randomizer;
+package com.pavelshapel.randomizer.service.randomizer.randomentity;
 
 import com.pavelshapel.randomizer.entity.RandomEntity;
+import com.pavelshapel.randomizer.service.randomizer.primitive.PrimitiveRandomizer;
+import com.pavelshapel.randomizer.service.randomizer.Randomizer;
 import org.apache.commons.lang3.Range;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@Service
-public final class RandomEntityRandomizer<T> implements Randomizer<RandomEntity<T>> {
+public abstract class RandomEntityRandomizer<T> implements Randomizer<RandomEntity<T>> {
     private final PrimitiveRandomizer<T> primitiveRandomizer;
     private final Class<T> genericParameterClass;
 
-    @Autowired
-    public RandomEntityRandomizer(PrimitiveRandomizer<T> primitiveRandomizer) {
+    protected RandomEntityRandomizer(PrimitiveRandomizer<T> primitiveRandomizer) {
         this.primitiveRandomizer = primitiveRandomizer;
         final ParameterizedType genericSuperclass = (ParameterizedType) this.primitiveRandomizer
                 .getClass().getGenericSuperclass();
