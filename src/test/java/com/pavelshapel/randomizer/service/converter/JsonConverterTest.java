@@ -1,7 +1,7 @@
 package com.pavelshapel.randomizer.service.converter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pavelshapel.randomizer.service.randomizer.StringRandomizer;
+import com.pavelshapel.randomizer.service.randomizer.primitive.StringPrimitiveRandomizer;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,7 +20,7 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 @ContextConfiguration(classes = {
         JsonConverter.class,
         ObjectMapper.class,
-        StringRandomizer.class
+        StringPrimitiveRandomizer.class
 })
 class JsonConverterTest {
     private static final Integer ID = 1;
@@ -28,12 +28,12 @@ class JsonConverterTest {
     private static final String JSON_TESTER = String.format("{\"id\":%d,\"name\":\"%s\"}", ID, NAME);
 
     private final JsonConverter jsonConverter;
-    private final StringRandomizer stringRandomizer;
+    private final StringPrimitiveRandomizer stringPrimitiveRandomizer;
 
     @Autowired
-    JsonConverterTest(JsonConverter jsonConverter, StringRandomizer stringRandomizer) {
+    JsonConverterTest(JsonConverter jsonConverter, StringPrimitiveRandomizer stringPrimitiveRandomizer) {
         this.jsonConverter = jsonConverter;
-        this.stringRandomizer = stringRandomizer;
+        this.stringPrimitiveRandomizer = stringPrimitiveRandomizer;
     }
 
     @Test
@@ -53,7 +53,7 @@ class JsonConverterTest {
 
     @Test
     void pojoToJson_InvalidPojoAsParam_ShouldReturnOptionalEmpty() {
-        final Optional<String> optionalJson = jsonConverter.pojoToJson(stringRandomizer.randomize());
+        final Optional<String> optionalJson = jsonConverter.pojoToJson(stringPrimitiveRandomizer.randomize());
 
         assertThat(optionalJson).isEmpty();
     }
@@ -68,7 +68,7 @@ class JsonConverterTest {
 
     @Test
     void jsonToPojo_InvalidStringAsParam_ShouldReturnOptionalEmpty() {
-        final Optional<Tester> optionalTester = jsonConverter.jsonToPojo(stringRandomizer.randomize(), Tester.class);
+        final Optional<Tester> optionalTester = jsonConverter.jsonToPojo(stringPrimitiveRandomizer.randomize(), Tester.class);
 
         assertThat(optionalTester).isEmpty();
     }
@@ -106,7 +106,7 @@ class JsonConverterTest {
 
     @Test
     void pojoToMap_InvalidPojoAsParam_ShouldReturnOptionalEmpty() {
-        Optional<Map<String, Object>> optionalMap = jsonConverter.pojoToMap(stringRandomizer.randomize());
+        Optional<Map<String, Object>> optionalMap = jsonConverter.pojoToMap(stringPrimitiveRandomizer.randomize());
 
         AssertionsForClassTypes.assertThat(optionalMap).isEmpty();
     }

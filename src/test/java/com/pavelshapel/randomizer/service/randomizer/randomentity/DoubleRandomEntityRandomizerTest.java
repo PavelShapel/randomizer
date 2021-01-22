@@ -1,6 +1,8 @@
-package com.pavelshapel.randomizer.service.randomizer;
+package com.pavelshapel.randomizer.service.randomizer.randomentity;
 
+import com.pavelshapel.randomizer.entity.RandomEntity;
 import com.pavelshapel.randomizer.provider.TwoParametersLongProvider;
+import com.pavelshapel.randomizer.service.randomizer.primitive.DoublePrimitiveRandomizer;
 import org.apache.commons.lang3.Range;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,39 +18,47 @@ import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_B
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@ContextConfiguration(classes = DoubleRandomizer.class)
-class DoubleRandomizerTest {
+@ContextConfiguration(classes = {
+        DoubleRandomEntityRandomizer.class,
+        DoublePrimitiveRandomizer.class})
+class DoubleRandomEntityRandomizerTest {
+    private final DoubleRandomEntityRandomizer doubleRandomEntityRandomizer;
+
     @Autowired
-    DoubleRandomizer doubleRandomizer;
+    DoubleRandomEntityRandomizerTest(DoubleRandomEntityRandomizer doubleRandomEntityRandomizer) {
+        this.doubleRandomEntityRandomizer = doubleRandomEntityRandomizer;
+    }
 
     @Test
-    void randomize_WithDefaultRange_ShouldReturnDouble() {
-        final Double randomDouble = doubleRandomizer.randomize();
+    void randomize_WithDefaultRange_ShouldReturnRandomEntity() {
+        final RandomEntity<Double> randomEntity = doubleRandomEntityRandomizer.randomize();
 
-        assertThat(randomDouble).isBetween(
+        assertThat(randomEntity.getValue()).isBetween(
                 DEFAULT_LONG_RANGE.getValue().getMinimum().doubleValue(),
                 DEFAULT_LONG_RANGE.getValue().getMaximum().doubleValue()
         );
+        assertThat(randomEntity.getType()).isEqualTo(Double.class);
     }
 
     @ParameterizedTest
     @ArgumentsSource(TwoParametersLongProvider.class)
-    void randomize_WithBoundedRange_ShouldReturnDouble(long min, long max) {
+    void randomize_WithBoundedRange_ShouldReturnRandomEntity(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
-        final Double randomDouble = doubleRandomizer.randomize(range);
+        final RandomEntity<Double> randomEntity = doubleRandomEntityRandomizer.randomize(range);
 
-        assertThat(randomDouble).isBetween(
+        assertThat(randomEntity.getValue()).isBetween(
                 range.getMinimum().doubleValue(),
                 range.getMaximum().doubleValue()
         );
+        assertThat(randomEntity.getType()).isEqualTo(Double.class);
     }
 
     @Test
     void randomizeCollection_ShouldReturnCollection() {
-        final Collection<Double> randomCollection = doubleRandomizer.randomizeCollection();
+        final Collection<RandomEntity<Double>> randomEntityCollection = doubleRandomEntityRandomizer.randomizeCollection();
 
-        assertThat(randomCollection.size()).isBetween(
+        assertThat(randomEntityCollection.size()).isBetween(
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum().intValue(),
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum().intValue()
         );

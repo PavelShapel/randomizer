@@ -1,4 +1,4 @@
-package com.pavelshapel.randomizer.service.randomizer;
+package com.pavelshapel.randomizer.service.randomizer.primitive;
 
 import com.pavelshapel.randomizer.provider.TwoParametersLongProvider;
 import org.apache.commons.lang3.Range;
@@ -16,18 +16,18 @@ import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_B
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@ContextConfiguration(classes = LongRandomizer.class)
-class LongRandomizerTest {
-    private final LongRandomizer longRandomizer;
+@ContextConfiguration(classes = LongPrimitiveRandomizer.class)
+class LongPrimitiveRandomizerTest {
+    private final LongPrimitiveRandomizer longPrimitiveRandomizer;
 
     @Autowired
-    LongRandomizerTest(LongRandomizer longRandomizer) {
-        this.longRandomizer = longRandomizer;
+    LongPrimitiveRandomizerTest(LongPrimitiveRandomizer longPrimitiveRandomizer) {
+        this.longPrimitiveRandomizer = longPrimitiveRandomizer;
     }
 
     @Test
     void randomize_WithDefaultRange_ShouldReturnLong() {
-        final Long randomLong = longRandomizer.randomize();
+        final Long randomLong = longPrimitiveRandomizer.randomize();
 
         assertThat(randomLong).isBetween(
                 DEFAULT_LONG_RANGE.getValue().getMinimum(),
@@ -40,7 +40,7 @@ class LongRandomizerTest {
     void randomize_WithBoundedRange_ShouldReturnLong(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
-        final Long randomLong = longRandomizer.randomize(range);
+        final Long randomLong = longPrimitiveRandomizer.randomize(range);
 
         assertThat(randomLong).isBetween(
                 range.getMinimum(),
@@ -50,7 +50,7 @@ class LongRandomizerTest {
 
     @Test
     void randomizeCollection_ShouldReturnCollection() {
-        final Collection<Long> randomCollection = longRandomizer.randomizeCollection();
+        final Collection<Long> randomCollection = longPrimitiveRandomizer.randomizeCollection();
 
         assertThat(randomCollection.size()).isBetween(
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum().intValue(),

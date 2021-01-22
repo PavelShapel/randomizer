@@ -1,4 +1,4 @@
-package com.pavelshapel.randomizer.service.randomizer;
+package com.pavelshapel.randomizer.service.randomizer.primitive;
 
 import com.pavelshapel.randomizer.provider.TwoParametersLongProvider;
 import org.apache.commons.lang3.Range;
@@ -15,18 +15,18 @@ import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_B
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@ContextConfiguration(classes = StringRandomizer.class)
-class StringRandomizerTest {
-    private final StringRandomizer stringRandomizer;
+@ContextConfiguration(classes = StringPrimitiveRandomizer.class)
+class StringPrimitiveRandomizerTest {
+    private final StringPrimitiveRandomizer stringPrimitiveRandomizer;
 
     @Autowired
-    StringRandomizerTest(StringRandomizer stringRandomizer) {
-        this.stringRandomizer = stringRandomizer;
+    StringPrimitiveRandomizerTest(StringPrimitiveRandomizer stringPrimitiveRandomizer) {
+        this.stringPrimitiveRandomizer = stringPrimitiveRandomizer;
     }
 
     @Test
     void randomize_WithDefaultRange_ShouldReturnString() {
-        final String randomString = stringRandomizer.randomize();
+        final String randomString = stringPrimitiveRandomizer.randomize();
 
         assertThat(randomString.length()).isBetween(
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum().intValue(),
@@ -39,7 +39,7 @@ class StringRandomizerTest {
     void randomize_WithBoundedSpecification_ShouldReturnString(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
-        String randomString = stringRandomizer.randomize(range);
+        String randomString = stringPrimitiveRandomizer.randomize(range);
 
         assertThat(randomString.length()).isBetween(
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum().intValue(),
@@ -49,7 +49,7 @@ class StringRandomizerTest {
 
     @Test
     void randomizeCollection_ShouldReturnCollection() {
-        final Collection<String> randomCollection = stringRandomizer.randomizeCollection();
+        final Collection<String> randomCollection = stringPrimitiveRandomizer.randomizeCollection();
 
         assertThat(randomCollection.size()).isBetween(
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum().intValue(),

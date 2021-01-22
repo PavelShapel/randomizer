@@ -1,4 +1,4 @@
-package com.pavelshapel.randomizer.service.randomizer;
+package com.pavelshapel.randomizer.service.randomizer.primitive;
 
 import com.pavelshapel.randomizer.provider.TwoParametersLongProvider;
 import org.apache.commons.lang3.Range;
@@ -17,14 +17,14 @@ import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_B
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@ContextConfiguration(classes = DateRandomizer.class)
-class DateRandomizerTest {
+@ContextConfiguration(classes = DatePrimitiveRandomizer.class)
+class DatePrimitiveRandomizerTest {
     @Autowired
-    DateRandomizer dateRandomizer;
+    DatePrimitiveRandomizer datePrimitiveRandomizer;
 
     @Test
     void randomize_WithDefaultRange_ShouldReturnDate() {
-        final Date randomDate = dateRandomizer.randomize();
+        final Date randomDate = datePrimitiveRandomizer.randomize();
 
         assertThat(randomDate.getTime()).isBetween(
                 DEFAULT_LONG_RANGE.getValue().getMinimum(),
@@ -37,14 +37,18 @@ class DateRandomizerTest {
     void randomize_WithBoundedRange_ShouldReturnDate(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
-        final Date randomDate = dateRandomizer.randomize(range);
+        final Date randomDate = datePrimitiveRandomizer.randomize(range);
 
+        assertThat(randomDate.getTime()).isBetween(
+                DEFAULT_LONG_RANGE.getValue().getMinimum(),
+                DEFAULT_LONG_RANGE.getValue().getMaximum()
+        );
         assertThat(randomDate).isInstanceOf(Date.class);
     }
 
     @Test
     void randomizeCollection_ShouldReturnCollection() {
-        final Collection<Date> randomCollection = dateRandomizer.randomizeCollection();
+        final Collection<Date> randomCollection = datePrimitiveRandomizer.randomizeCollection();
 
         assertThat(randomCollection.size()).isBetween(
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum().intValue(),
