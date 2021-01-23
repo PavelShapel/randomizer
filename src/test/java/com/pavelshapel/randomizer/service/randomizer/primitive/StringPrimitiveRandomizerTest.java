@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.util.Collection;
-
 import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_BYTE_RANGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -48,10 +46,10 @@ class StringPrimitiveRandomizerTest {
     }
 
     @Test
-    void randomizeCollection_ShouldReturnCollection() {
-        final Collection<String> randomCollection = stringPrimitiveRandomizer.randomizeCollection();
+    void randomize_NullAsParam_ShouldReturnLong() {
+        final String randomString = stringPrimitiveRandomizer.randomize(null);
 
-        assertThat(randomCollection.size()).isBetween(
+        assertThat(randomString.length()).isBetween(
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum().intValue(),
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum().intValue()
         );
