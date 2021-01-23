@@ -34,7 +34,7 @@ public abstract class AbstractRestController<T> {
 
     @LogMethodResult
     @GetMapping(PATH_COLLECTION)
-    protected ResponseEntity<Collection<RandomEntity<T>>> getRandomEntityList() {
+    protected ResponseEntity<Collection<RandomEntity<T>>> getRandomEntityCollection() {
         return ResponseEntity.ok(randomEntityRandomizer.randomizeCollection());
     }
 }
