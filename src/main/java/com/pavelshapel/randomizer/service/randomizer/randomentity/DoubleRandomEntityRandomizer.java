@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public final class DoubleRandomEntityRandomizer extends RandomEntityRandomizer<Double> {
-
     @Autowired
     public DoubleRandomEntityRandomizer(PrimitiveRandomizer<Double> primitiveRandomizer) {
         super(primitiveRandomizer);

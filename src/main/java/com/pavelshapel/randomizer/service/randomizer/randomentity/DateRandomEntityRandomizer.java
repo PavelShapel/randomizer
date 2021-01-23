@@ -8,7 +8,6 @@ import java.util.Date;
 
 @Service
 public final class DateRandomEntityRandomizer extends RandomEntityRandomizer<Date> {
-
     @Autowired
     public DateRandomEntityRandomizer(PrimitiveRandomizer<Date> primitiveRandomizer) {
         super(primitiveRandomizer);
