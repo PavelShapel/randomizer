@@ -45,7 +45,7 @@ class DatePrimitiveRandomizerTest {
     }
 
     @Test
-    void randomize_NullAsParam_ShouldReturnLong() {
+    void randomize_NullAsParam_ShouldReturnDate() {
         final Date randomDate = datePrimitiveRandomizer.randomize(null);
 
         assertThat(randomDate.getTime()).isBetween(

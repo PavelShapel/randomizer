@@ -46,7 +46,7 @@ class StringPrimitiveRandomizerTest {
     }
 
     @Test
-    void randomize_NullAsParam_ShouldReturnLong() {
+    void randomize_NullAsParam_ShouldReturnString() {
         final String randomString = stringPrimitiveRandomizer.randomize(null);
 
         assertThat(randomString.length()).isBetween(

@@ -35,7 +35,7 @@ class BooleanPrimitiveRandomizerTest {
     }
 
     @Test
-    void randomize_NullAsParam_ShouldReturnLong() {
+    void randomize_NullAsParam_ShouldReturnBoolean() {
         final Boolean randomBoolean = booleanPrimitiveRandomizer.randomize(null);
 
         assertThat(randomBoolean).isIn(false, true);

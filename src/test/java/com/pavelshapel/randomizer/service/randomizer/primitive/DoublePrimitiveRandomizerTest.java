@@ -42,7 +42,7 @@ class DoublePrimitiveRandomizerTest {
     }
 
     @Test
-    void randomize_NullAsParam_ShouldReturnLong() {
+    void randomize_NullAsParam_ShouldReturnDouble() {
         final Double randomDouble = doublePrimitiveRandomizer.randomize(null);
 
         assertThat(randomDouble).isBetween(

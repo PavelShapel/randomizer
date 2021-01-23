@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.util.Collection;
-
 import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_BYTE_RANGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -56,12 +54,13 @@ class StringRandomEntityRandomizerTest {
     }
 
     @Test
-    void randomizeCollection_ShouldReturnCollection() {
-        final Collection<RandomEntity<String>> randomEntityCollection = stringRandomEntityRandomizer.randomizeCollection();
+    void randomize_NullAsParam_ShouldReturnRandomEntity() {
+        final RandomEntity<String> randomEntity = stringRandomEntityRandomizer.randomize(null);
 
-        assertThat(randomEntityCollection.size()).isBetween(
+        assertThat(randomEntity.getValue().length()).isBetween(
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum().intValue(),
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum().intValue()
         );
+        assertThat(randomEntity.getType()).isEqualTo(String.class);
     }
 }

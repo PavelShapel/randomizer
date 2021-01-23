@@ -12,11 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.util.Collection;
 import java.util.Date;
 
 import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_LONG_RANGE;
-import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_BYTE_RANGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -58,12 +56,13 @@ class DateRandomEntityRandomizerTest {
     }
 
     @Test
-    void randomizeCollection_ShouldReturnCollection() {
-        final Collection<RandomEntity<Date>> randomEntityCollection = dateRandomEntityRandomizer.randomizeCollection();
+    void randomize_NullAsParam_ShouldReturnRandomEntity() {
+        final RandomEntity<Date> randomEntity = dateRandomEntityRandomizer.randomize(null);
 
-        assertThat(randomEntityCollection.size()).isBetween(
-                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum().intValue(),
-                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum().intValue()
+        assertThat(randomEntity.getValue().getTime()).isBetween(
+                DEFAULT_LONG_RANGE.getValue().getMinimum(),
+                DEFAULT_LONG_RANGE.getValue().getMaximum()
         );
+        assertThat(randomEntity.getType()).isEqualTo(Date.class);
     }
 }
