@@ -2,6 +2,7 @@ package com.pavelshapel.randomizer.service.randomizer.randomentity;
 
 import com.pavelshapel.randomizer.entity.RandomEntity;
 import com.pavelshapel.randomizer.provider.TwoParametersLongProvider;
+import com.pavelshapel.randomizer.service.Utilities;
 import com.pavelshapel.randomizer.service.randomizer.primitive.LongPrimitiveRandomizer;
 import org.apache.commons.lang3.Range;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ContextConfiguration(classes = {
         LongRandomEntityRandomizer.class,
-        LongPrimitiveRandomizer.class})
+        LongPrimitiveRandomizer.class,
+        Utilities.class})
 class LongRandomEntityRandomizerTest {
     private final LongRandomEntityRandomizer longRandomEntityRandomizer;
 
