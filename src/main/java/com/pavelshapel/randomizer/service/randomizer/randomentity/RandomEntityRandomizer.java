@@ -1,23 +1,22 @@
 package com.pavelshapel.randomizer.service.randomizer.randomentity;
 
 import com.pavelshapel.randomizer.entity.RandomEntity;
-import com.pavelshapel.randomizer.service.randomizer.primitive.PrimitiveRandomizer;
+import com.pavelshapel.randomizer.service.Utilities;
 import com.pavelshapel.randomizer.service.randomizer.Randomizer;
+import com.pavelshapel.randomizer.service.randomizer.primitive.PrimitiveRandomizer;
 import org.apache.commons.lang3.Range;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
 public abstract class RandomEntityRandomizer<T> implements Randomizer<RandomEntity<T>> {
     private final PrimitiveRandomizer<T> primitiveRandomizer;
-    private final Class<T> genericParameterClass;
+    @Autowired
+    private Utilities utilities;
 
     protected RandomEntityRandomizer(PrimitiveRandomizer<T> primitiveRandomizer) {
         this.primitiveRandomizer = primitiveRandomizer;
-        final ParameterizedType genericSuperclass = (ParameterizedType) this.primitiveRandomizer
-                .getClass().getGenericSuperclass();
-        this.genericParameterClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
     }
 
     @Override
@@ -38,6 +37,10 @@ public abstract class RandomEntityRandomizer<T> implements Randomizer<RandomEnti
     }
 
     private RandomEntity<T> getRandomEntity(T value) {
-        return new RandomEntity<>(value, genericParameterClass);
+        return new RandomEntity<>(value, getGenericParameterClass());
+    }
+
+    private Class<T> getGenericParameterClass() {
+        return (Class<T>) utilities.getSuperClassGenericType(primitiveRandomizer, 0);
     }
 }
