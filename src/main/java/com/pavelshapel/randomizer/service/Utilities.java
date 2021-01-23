@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class Utilities {
-    public Class<?> getGenericTypeSuperClass(Object object, int index) {
+    public Class<?> getSuperClassGenericType(Object object, int index) {
         final ParameterizedType genericSuperclass = (ParameterizedType) object.getClass().getGenericSuperclass();
         return (Class<?>) genericSuperclass.getActualTypeArguments()[index];
     }
