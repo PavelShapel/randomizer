@@ -2,12 +2,10 @@ package com.pavelshapel.randomizer.service.randomizer;
 
 import org.apache.commons.lang3.Range;
 
-import java.util.Collection;
-
 public interface Randomizer<T> {
+    String RANDOMIZE_BY_DEFAULT = "randomize by default, because an exception is thrown [{}]";
+
     T randomize();
 
     T randomize(Range<Long> range);
-
-    Collection<T> randomizeCollection();
 }
