@@ -18,7 +18,7 @@ public final class DatePrimitiveRandomizer extends PrimitiveRandomizer<Date> {
     }
 
     @Override
-    protected Date randomizeRange(Range<Long> range) {
+    public Date implementRandomization(Range<Long> range) {
         final Range<Calendar> dateRange = getDateRange(range);
         final long randomLong = ThreadLocalRandom.current().nextLong(
                 dateRange.getMinimum().getTimeInMillis(),

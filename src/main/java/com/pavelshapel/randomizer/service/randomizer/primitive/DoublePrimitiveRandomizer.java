@@ -18,7 +18,7 @@ public final class DoublePrimitiveRandomizer extends PrimitiveRandomizer<Double>
     }
 
     @Override
-    protected Double randomizeRange(Range<Long> range) {
+    public Double implementRandomization(Range<Long> range) {
         final double randomDouble = ThreadLocalRandom.current().nextDouble(
                 range.getMinimum().doubleValue(),
                 range.getMaximum().doubleValue()

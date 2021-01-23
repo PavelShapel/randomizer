@@ -14,7 +14,7 @@ public final class StringPrimitiveRandomizer extends PrimitiveRandomizer<String>
     }
 
     @Override
-    protected String randomizeRange(Range<Long> range) {
+    public String implementRandomization(Range<Long> range) {
         final Range<Long> intersectionWithPositiveByteRange =
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().intersectionWith(range);
 

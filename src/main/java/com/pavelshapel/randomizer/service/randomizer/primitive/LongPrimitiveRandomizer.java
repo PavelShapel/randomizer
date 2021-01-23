@@ -15,7 +15,7 @@ public final class LongPrimitiveRandomizer extends PrimitiveRandomizer<Long> {
     }
 
     @Override
-    protected Long randomizeRange(Range<Long> range) {
+    public Long implementRandomization(Range<Long> range) {
         return ThreadLocalRandom.current().nextLong(
                 range.getMinimum(),
                 range.getMaximum()

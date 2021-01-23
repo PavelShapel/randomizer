@@ -13,7 +13,7 @@ public final class BooleanPrimitiveRandomizer extends PrimitiveRandomizer<Boolea
     }
 
     @Override
-    protected Boolean randomizeRange(Range<Long> range) {
+    public Boolean implementRandomization(Range<Long> range) {
         return randomize();
     }
 }
