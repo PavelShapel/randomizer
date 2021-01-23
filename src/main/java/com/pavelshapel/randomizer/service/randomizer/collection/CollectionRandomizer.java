@@ -45,7 +45,7 @@ public abstract class CollectionRandomizer<T> implements Randomizer<Collection<T
                 intersectionWithPositiveByteRange.getMaximum()
         );
 
-        return Stream.generate(() -> primitiveRandomizer.randomize(intersectionWithPositiveByteRange))
+        return Stream.generate(primitiveRandomizer::randomize)
                 .limit(collectionSize)
                 .collect(Collectors.toList());
     }
