@@ -13,7 +13,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
-public final class PojoRandomizer extends PrimitiveRandomizer<Map<String, Object>> {
+public final class PojoRandomizer implements Randomizer<Map<String, Object>> {
     private final Collection<PrimitiveRandomizer<?>> primitiveRandomizers;
     private final Utilities utilities;
 
@@ -30,7 +30,7 @@ public final class PojoRandomizer extends PrimitiveRandomizer<Map<String, Object
     }
 
     @Override
-    protected Map<String, Object> randomizeRange(Range<Long> range) {
+    public Map<String, Object> randomize(Range<Long> range) {
         return createDefaultMap();
     }
 
