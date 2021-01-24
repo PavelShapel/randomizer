@@ -1,11 +1,14 @@
-package com.pavelshapel.randomizer.service.randomizer;
+package com.pavelshapel.randomizer.service.randomizer.primitive.map;
 
 import com.pavelshapel.randomizer.service.Utilities;
+import com.pavelshapel.randomizer.service.randomizer.Randomizer;
 import com.pavelshapel.randomizer.service.randomizer.collection.CollectionRandomizer;
+import com.pavelshapel.randomizer.service.randomizer.primitive.PrimitiveRandomizer;
 import org.apache.commons.lang3.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,15 +16,15 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
-public final class PojoRandomizer implements Randomizer<Map<String, Object>> {
-    private final Collection<Randomizer<?>> randomizers;
-    private final Utilities utilities;
-
+public final class MapPrimitiveRandomizer extends PrimitiveRandomizer<Map<String, Object>> implements MapRandomizer<Map<String, Object>> {
     @Autowired
-    public PojoRandomizer(Collection<Randomizer<?>> randomizers,
-                          Utilities utilities) {
-        this.randomizers = randomizers;
-        this.utilities = utilities;
+    private Collection<Randomizer<?>> randomizers;
+    @Autowired
+    private Utilities utilities;
+
+    @PostConstruct
+    private void postConstruct() {
+        randomizers.removeIf(randomizer -> randomizer instanceof MapRandomizer);
     }
 
     @Override
@@ -30,15 +33,16 @@ public final class PojoRandomizer implements Randomizer<Map<String, Object>> {
     }
 
     @Override
-    public Map<String, Object> randomize(Range<Long> range) {
+    protected Map<String, Object> implementRandomization(Range<Long> range) {
         return createDefaultMap();
     }
 
-    public Map<String, Object> randomize(Map<String, Object> pojo) {
-        final Map<String, Object> map = new HashMap<>();
-        pojo.forEach((key, value) -> map.put(key, getRandomValueByClassName(value.toString())));
+    @Override
+    public Map<String, Object> randomize(Map<String, Object> map) {
+        final Map<String, Object> result = new HashMap<>();
+        map.forEach((key, value) -> result.put(key, getRandomValueByClassName(value.toString())));
 
-        return map;
+        return result;
     }
 
     private Object getRandomValueByClassName(String className) {
