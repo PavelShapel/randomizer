@@ -26,14 +26,14 @@ public abstract class AbstractRestController<T> {
     @Autowired
     private Utilities utilities;
 
-    @LogMethodResult
+    @LogMethodResult(logLevel = "DEBUG")
     @GetMapping
     protected ResponseEntity<RandomEntity<T>> getRandomEntity() {
         final RandomEntity<T> randomEntity = getRandomEntity(primitiveRandomizer.randomize());
         return ResponseEntity.ok(randomEntity);
     }
 
-    @LogMethodResult
+    @LogMethodResult(logLevel = "DEBUG")
     @GetMapping(PATH_VALUE_RANGE)
     protected ResponseEntity<RandomEntity<T>> getRandomEntity(
             @PathVariable long minValue,
@@ -42,7 +42,7 @@ public abstract class AbstractRestController<T> {
         return ResponseEntity.ok(randomEntity);
     }
 
-    @LogMethodResult
+    @LogMethodResult(logLevel = "DEBUG")
     @GetMapping(PATH_COLLECTION)
     protected ResponseEntity<Collection<RandomEntity<T>>> getRandomEntityCollection() {
         final Collection<RandomEntity<T>> randomEntities = collectionRandomizer.randomize().stream()
@@ -51,7 +51,7 @@ public abstract class AbstractRestController<T> {
         return ResponseEntity.ok(randomEntities);
     }
 
-    @LogMethodResult
+    @LogMethodResult(logLevel = "DEBUG")
     @GetMapping(PATH_COLLECTION + PATH_SIZE_RANGE)
     protected ResponseEntity<Collection<RandomEntity<T>>> getRandomEntityCollectionBySize(
             @PathVariable long minSize,
@@ -62,7 +62,7 @@ public abstract class AbstractRestController<T> {
         return ResponseEntity.ok(randomEntities);
     }
 
-    @LogMethodResult
+    @LogMethodResult(logLevel = "DEBUG")
     @GetMapping(PATH_VALUE_RANGE + PATH_COLLECTION)
     protected ResponseEntity<Collection<RandomEntity<T>>> getRandomEntityCollectionByValue(
             @PathVariable long minValue,
@@ -73,7 +73,7 @@ public abstract class AbstractRestController<T> {
         return ResponseEntity.ok(randomEntities);
     }
 
-    @LogMethodResult
+    @LogMethodResult(logLevel = "DEBUG")
     @GetMapping(PATH_VALUE_RANGE + PATH_COLLECTION + PATH_SIZE_RANGE)
     protected ResponseEntity<Collection<RandomEntity<T>>> getRandomEntityCollectionByValueSize(
             @PathVariable long minValue,
@@ -92,6 +92,7 @@ public abstract class AbstractRestController<T> {
     }
 
     private Class<T> getGenericParameterClass() {
-        return (Class<T>) utilities.getSuperClassGenericType(primitiveRandomizer, 0);
+        final Class<?> superClassGenericType = utilities.getSuperClassGenericType(primitiveRandomizer, 0);
+        return (Class<T>) superClassGenericType;
     }
 }
