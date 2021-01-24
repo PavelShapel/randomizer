@@ -13,7 +13,7 @@
 //class LongRestControllerTest extends AbstractRestControllerTest<Long> {
 //    @Test
 //    void getRandomEntity_WithDefaultRange_ShouldReturnRandomEntity() {
-//        when(getPrimitiveRandomizer().randomize()).thenAnswer( getMockRandomEntity());
+//        when(getPrimitiveRandomizer().randomize()).thenReturn(getMockRandomEntity().getValue());
 //
 //        MvcResult mvcResult = getMvcResult(getMockRandomEntity());
 //        final RandomEntity<Long> randomEntityFromResponse = getRandomEntityFromResponse(mvcResult);
@@ -22,7 +22,7 @@
 //        int status = mvcResult.getResponse().getStatus();
 //        assertThat(status).isEqualTo(HttpStatus.OK.value());
 //
-//        verify(getPrimitiveRandomizer(), times(1)).getRandomEntity();
+//        verify(getPrimitiveRandomizer(), times(1)).randomize();
 //    }
 //
 //    @Override
