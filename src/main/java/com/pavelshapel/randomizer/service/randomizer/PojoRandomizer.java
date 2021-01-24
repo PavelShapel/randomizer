@@ -1,7 +1,7 @@
 package com.pavelshapel.randomizer.service.randomizer;
 
 import com.pavelshapel.randomizer.service.Utilities;
-import com.pavelshapel.randomizer.service.randomizer.primitive.PrimitiveRandomizer;
+import com.pavelshapel.randomizer.service.randomizer.collection.CollectionRandomizer;
 import org.apache.commons.lang3.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,13 +14,13 @@ import java.util.stream.Collectors;
 
 @Service
 public final class PojoRandomizer implements Randomizer<Map<String, Object>> {
-    private final Collection<PrimitiveRandomizer<?>> primitiveRandomizers;
+    private final Collection<Randomizer<?>> randomizers;
     private final Utilities utilities;
 
     @Autowired
-    public PojoRandomizer(Collection<PrimitiveRandomizer<?>> primitiveRandomizers,
+    public PojoRandomizer(Collection<Randomizer<?>> randomizers,
                           Utilities utilities) {
-        this.primitiveRandomizers = primitiveRandomizers;
+        this.randomizers = randomizers;
         this.utilities = utilities;
     }
 
@@ -42,21 +42,29 @@ public final class PojoRandomizer implements Randomizer<Map<String, Object>> {
     }
 
     private Object getRandomValueByClassName(String className) {
-        return primitiveRandomizers.stream()
-                .filter(randomizer -> utilities.getSuperClassGenericType(randomizer, 0).getName().equalsIgnoreCase(className))
+        return randomizers.stream()
+                .filter(randomizer -> className.equalsIgnoreCase(getSuperClassGenericTypeName(randomizer)))
                 .map(Randomizer::randomize)
                 .collect(utilities.toSingleton());
     }
 
+    private String getSuperClassGenericTypeName(Randomizer<?> randomizer) {
+        final Class<?> superClassGenericType = utilities.getSuperClassGenericType(randomizer, 0);
+        return randomizer instanceof CollectionRandomizer
+                ? String.format("%s[]", superClassGenericType.getSimpleName())
+                : superClassGenericType.getSimpleName();
+
+    }
+
     private Map<String, Object> createDefaultMap() {
-        return primitiveRandomizers.stream()
+        return randomizers.stream()
                 .collect(getPrimitiveRandomizerMapCollector());
     }
 
-    private Collector<PrimitiveRandomizer<?>, ?, Map<String, Object>> getPrimitiveRandomizerMapCollector() {
+    private Collector<Randomizer<?>, ?, Map<String, Object>> getPrimitiveRandomizerMapCollector() {
         return Collectors
                 .toMap(
-                        randomizer -> utilities.getSuperClassGenericType(randomizer, 0).getSimpleName().toLowerCase(),
+                        randomizer -> getSuperClassGenericTypeName(randomizer).toLowerCase(),
                         Randomizer::randomize
                 );
     }
