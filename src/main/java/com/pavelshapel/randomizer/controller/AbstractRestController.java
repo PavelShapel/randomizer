@@ -15,7 +15,8 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 public abstract class AbstractRestController<T> {
-    public static final String PATH_GENERIC_RANGE = "/{min:[\\d]+}/{max:[\\d]+}";
+    public static final String PATH_VALUE_RANGE = "/{minValue:[\\d]+}/{maxValue:[\\d]+}";
+    public static final String PATH_SIZE_RANGE = "/{minSize:[\\d]+}/{maxSize:[\\d]+}";
     public static final String PATH_COLLECTION = "/collection";
 
     @Autowired
@@ -33,11 +34,11 @@ public abstract class AbstractRestController<T> {
     }
 
     @LogMethodResult
-    @GetMapping(PATH_GENERIC_RANGE)
+    @GetMapping(PATH_VALUE_RANGE)
     protected ResponseEntity<RandomEntity<T>> getRandomEntity(
-            @PathVariable long min,
-            @PathVariable long max) {
-        final RandomEntity<T> randomEntity = getRandomEntity(primitiveRandomizer.randomize(Range.between(min, max)));
+            @PathVariable long minValue,
+            @PathVariable long maxValue) {
+        final RandomEntity<T> randomEntity = getRandomEntity(primitiveRandomizer.randomize(Range.between(minValue, maxValue)));
         return ResponseEntity.ok(randomEntity);
     }
 
@@ -51,11 +52,36 @@ public abstract class AbstractRestController<T> {
     }
 
     @LogMethodResult
-    @GetMapping(PATH_COLLECTION + PATH_GENERIC_RANGE)
-    protected ResponseEntity<Collection<RandomEntity<T>>> getRandomEntityCollection(
-            @PathVariable long min,
-            @PathVariable long max) {
-        final Collection<RandomEntity<T>> randomEntities = collectionRandomizer.randomize(Range.between(min, max)).stream()
+    @GetMapping(PATH_COLLECTION + PATH_SIZE_RANGE)
+    protected ResponseEntity<Collection<RandomEntity<T>>> getRandomEntityCollectionBySize(
+            @PathVariable long minSize,
+            @PathVariable long maxSize) {
+        final Collection<RandomEntity<T>> randomEntities = collectionRandomizer.randomize(Range.between(minSize, maxSize)).stream()
+                .map(this::getRandomEntity)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(randomEntities);
+    }
+
+    @LogMethodResult
+    @GetMapping(PATH_VALUE_RANGE + PATH_COLLECTION)
+    protected ResponseEntity<Collection<RandomEntity<T>>> getRandomEntityCollectionByValue(
+            @PathVariable long minValue,
+            @PathVariable long maxValue) {
+        final Collection<RandomEntity<T>> randomEntities = collectionRandomizer.randomize(Range.between(minValue, maxValue), null).stream()
+                .map(this::getRandomEntity)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(randomEntities);
+    }
+
+    @LogMethodResult
+    @GetMapping(PATH_VALUE_RANGE + PATH_COLLECTION + PATH_SIZE_RANGE)
+    protected ResponseEntity<Collection<RandomEntity<T>>> getRandomEntityCollectionByValueSize(
+            @PathVariable long minValue,
+            @PathVariable long maxValue,
+            @PathVariable long minSize,
+            @PathVariable long maxSize) {
+        final Collection<RandomEntity<T>> randomEntities = collectionRandomizer
+                .randomize(Range.between(minValue, maxValue), Range.between(minSize, maxSize)).stream()
                 .map(this::getRandomEntity)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(randomEntities);
