@@ -15,12 +15,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ContextConfiguration(classes = LongPrimitiveRandomizer.class)
 class LongPrimitiveRandomizerTest {
-    private final LongPrimitiveRandomizer longPrimitiveRandomizer;
-
     @Autowired
-    LongPrimitiveRandomizerTest(LongPrimitiveRandomizer longPrimitiveRandomizer) {
-        this.longPrimitiveRandomizer = longPrimitiveRandomizer;
-    }
+    private LongPrimitiveRandomizer longPrimitiveRandomizer;
 
     @Test
     void randomize_WithDefaultRange_ShouldReturnLong() {

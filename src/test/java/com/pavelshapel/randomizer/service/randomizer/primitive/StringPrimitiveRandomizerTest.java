@@ -15,12 +15,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ContextConfiguration(classes = StringPrimitiveRandomizer.class)
 class StringPrimitiveRandomizerTest {
-    private final StringPrimitiveRandomizer stringPrimitiveRandomizer;
-
     @Autowired
-    StringPrimitiveRandomizerTest(StringPrimitiveRandomizer stringPrimitiveRandomizer) {
-        this.stringPrimitiveRandomizer = stringPrimitiveRandomizer;
-    }
+    private StringPrimitiveRandomizer stringPrimitiveRandomizer;
 
     @Test
     void randomize_WithDefaultRange_ShouldReturnString() {

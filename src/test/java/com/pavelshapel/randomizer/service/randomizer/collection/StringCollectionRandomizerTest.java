@@ -22,12 +22,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 }
 )
 class StringCollectionRandomizerTest {
-    private final StringCollectionRandomizer stringCollectionRandomizer;
-
     @Autowired
-    StringCollectionRandomizerTest(StringCollectionRandomizer stringCollectionRandomizer) {
-        this.stringCollectionRandomizer = stringCollectionRandomizer;
-    }
+    private StringCollectionRandomizer stringCollectionRandomizer;
 
     @Test
     void randomize_WithDefaultRange_ShouldReturnCollection() {

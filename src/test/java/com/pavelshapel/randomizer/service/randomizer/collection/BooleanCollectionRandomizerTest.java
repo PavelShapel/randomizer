@@ -22,12 +22,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 }
 )
 class BooleanCollectionRandomizerTest {
-    private final BooleanCollectionRandomizer booleanCollectionRandomizer;
-
     @Autowired
-    BooleanCollectionRandomizerTest(BooleanCollectionRandomizer booleanCollectionRandomizer) {
-        this.booleanCollectionRandomizer = booleanCollectionRandomizer;
-    }
+    private BooleanCollectionRandomizer booleanCollectionRandomizer;
 
     @Test
     void randomize_WithDefaultRange_ShouldReturnCollection() {

@@ -23,12 +23,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 }
 )
 class DateCollectionRandomizerTest {
-    private final DateCollectionRandomizer dateCollectionRandomizer;
-
     @Autowired
-    DateCollectionRandomizerTest(DateCollectionRandomizer dateCollectionRandomizer) {
-        this.dateCollectionRandomizer = dateCollectionRandomizer;
-    }
+    private DateCollectionRandomizer dateCollectionRandomizer;
 
     @Test
     void randomize_WithDefaultRange_ShouldReturnCollection() {

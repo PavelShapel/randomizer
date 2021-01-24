@@ -27,14 +27,10 @@ class JsonConverterTest {
     private static final String NAME = "name";
     private static final String JSON_TESTER = String.format("{\"id\":%d,\"name\":\"%s\"}", ID, NAME);
 
-    private final JsonConverter jsonConverter;
-    private final StringPrimitiveRandomizer stringPrimitiveRandomizer;
-
     @Autowired
-    JsonConverterTest(JsonConverter jsonConverter, StringPrimitiveRandomizer stringPrimitiveRandomizer) {
-        this.jsonConverter = jsonConverter;
-        this.stringPrimitiveRandomizer = stringPrimitiveRandomizer;
-    }
+    private JsonConverter jsonConverter;
+    @Autowired
+    private StringPrimitiveRandomizer stringPrimitiveRandomizer;
 
     @Test
     void pojoToJson_ValidPojoAsParam_ShouldReturnJson() {

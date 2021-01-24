@@ -22,12 +22,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 }
 )
 class LongCollectionRandomizerTest {
-    private final LongCollectionRandomizer longCollectionRandomizer;
-
     @Autowired
-    LongCollectionRandomizerTest(LongCollectionRandomizer longCollectionRandomizer) {
-        this.longCollectionRandomizer = longCollectionRandomizer;
-    }
+    private LongCollectionRandomizer longCollectionRandomizer;
 
     @Test
     void randomize_WithDefaultRange_ShouldReturnCollection() {
