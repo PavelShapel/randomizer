@@ -13,7 +13,7 @@ import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_B
 @Service
 public final class DoublePrimitiveRandomizer extends PrimitiveRandomizer<Double> {
     @Override
-    protected Double randomizeByDefault() {
+    public Double randomize() {
         return randomize(DEFAULT_LONG_RANGE.getValue());
     }
 

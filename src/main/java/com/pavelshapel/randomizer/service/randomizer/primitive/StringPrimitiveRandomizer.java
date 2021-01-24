@@ -9,7 +9,7 @@ import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_B
 @Service
 public final class StringPrimitiveRandomizer extends PrimitiveRandomizer<String> {
     @Override
-    protected String randomizeByDefault() {
+    public String randomize() {
         return randomize(DEFAULT_POSITIVE_BYTE_RANGE.getValue());
     }
 

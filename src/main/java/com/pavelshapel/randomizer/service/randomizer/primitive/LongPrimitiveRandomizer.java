@@ -10,7 +10,7 @@ import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_LONG_RANGE
 @Service
 public final class LongPrimitiveRandomizer extends PrimitiveRandomizer<Long> {
     @Override
-    protected Long randomizeByDefault() {
+    public Long randomize() {
         return randomize(DEFAULT_LONG_RANGE.getValue());
     }
 

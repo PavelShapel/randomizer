@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 @Service
 public final class BooleanPrimitiveRandomizer extends PrimitiveRandomizer<Boolean> {
     @Override
-    protected Boolean randomizeByDefault() {
+    public Boolean randomize() {
         return ThreadLocalRandom.current().nextBoolean();
     }
 
