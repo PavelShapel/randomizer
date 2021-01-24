@@ -9,8 +9,12 @@ import java.util.stream.Collectors;
 @Service
 public class Utilities {
     public Class<?> getSuperClassGenericType(Object object, int index) {
-        final ParameterizedType genericSuperclass = (ParameterizedType) object.getClass().getGenericSuperclass();
-        return (Class<?>) genericSuperclass.getActualTypeArguments()[index];
+        try {
+            final ParameterizedType genericSuperclass = (ParameterizedType) object.getClass().getGenericSuperclass();
+            return (Class<?>) genericSuperclass.getActualTypeArguments()[index];
+        } catch (Exception exception) {
+            return Object.class;
+        }
     }
 
     public <T> Collector<T, ?, T> toSingleton() {
