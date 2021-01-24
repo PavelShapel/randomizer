@@ -10,12 +10,12 @@ import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_LONG_RANGE
 @Service
 public final class LongPrimitiveRandomizer extends PrimitiveRandomizer<Long> {
     @Override
-    public Long randomize() {
+    protected Long randomizeByDefault() {
         return randomize(DEFAULT_LONG_RANGE.getValue());
     }
 
     @Override
-    public Long implementRandomization(Range<Long> range) {
+    protected Long implementRandomization(Range<Long> range) {
         return ThreadLocalRandom.current().nextLong(
                 range.getMinimum(),
                 range.getMaximum()

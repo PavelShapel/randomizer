@@ -13,12 +13,12 @@ import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_YEAR_RANGE
 @Service
 public final class DatePrimitiveRandomizer extends PrimitiveRandomizer<Date> {
     @Override
-    public Date randomize() {
+    protected Date randomizeByDefault() {
         return randomize(DEFAULT_YEAR_RANGE.getValue());
     }
 
     @Override
-    public Date implementRandomization(Range<Long> range) {
+    protected Date implementRandomization(Range<Long> range) {
         final Range<Calendar> dateRange = getDateRange(range);
         final long randomLong = ThreadLocalRandom.current().nextLong(
                 dateRange.getMinimum().getTimeInMillis(),

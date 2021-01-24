@@ -9,12 +9,12 @@ import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_B
 @Service
 public final class StringPrimitiveRandomizer extends PrimitiveRandomizer<String> {
     @Override
-    public String randomize() {
+    protected String randomizeByDefault() {
         return randomize(DEFAULT_POSITIVE_BYTE_RANGE.getValue());
     }
 
     @Override
-    public String implementRandomization(Range<Long> range) {
+    protected String implementRandomization(Range<Long> range) {
         final Range<Long> intersectionWithPositiveByteRange =
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().intersectionWith(range);
 

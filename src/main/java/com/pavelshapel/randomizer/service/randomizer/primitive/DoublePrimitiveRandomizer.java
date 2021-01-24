@@ -13,12 +13,12 @@ import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_B
 @Service
 public final class DoublePrimitiveRandomizer extends PrimitiveRandomizer<Double> {
     @Override
-    public Double randomize() {
+    protected Double randomizeByDefault() {
         return randomize(DEFAULT_LONG_RANGE.getValue());
     }
 
     @Override
-    public Double implementRandomization(Range<Long> range) {
+    protected Double implementRandomization(Range<Long> range) {
         final double randomDouble = ThreadLocalRandom.current().nextDouble(
                 range.getMinimum().doubleValue(),
                 range.getMaximum().doubleValue()
