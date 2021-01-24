@@ -4,6 +4,7 @@ import com.pavelshapel.randomizer.service.randomizer.Randomizer;
 import com.pavelshapel.randomizer.service.randomizer.primitive.PrimitiveRandomizer;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.Range;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,11 +18,8 @@ import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_B
 
 @Log4j2
 public abstract class CollectionRandomizer<T> implements Randomizer<Collection<T>> {
-    private final PrimitiveRandomizer<T> primitiveRandomizer;
-
-    protected CollectionRandomizer(PrimitiveRandomizer<T> primitiveRandomizer) {
-        this.primitiveRandomizer = primitiveRandomizer;
-    }
+    @Autowired
+    private PrimitiveRandomizer<T> primitiveRandomizer;
 
     @Override
     public Collection<T> randomize() {
