@@ -94,7 +94,6 @@ public abstract class AbstractRestController<T> {
     }
 
     private Class<T> getGenericParameterClass() {
-        final Class<?> superClassGenericType = utilities.getSuperClassGenericType(primitiveRandomizer, 0);
-        return (Class<T>) superClassGenericType;
+        return (Class<T>) utilities.getSuperClassGenericType(primitiveRandomizer, 0);
     }
 }
