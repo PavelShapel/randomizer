@@ -3,18 +3,18 @@ package com.pavelshapel.randomizer.service;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
 public class Utilities {
     public Class<?> getSuperClassGenericType(Object object, int index) {
-        try {
-            final ParameterizedType genericSuperclass = (ParameterizedType) object.getClass().getGenericSuperclass();
-            return (Class<?>) genericSuperclass.getActualTypeArguments()[index];
-        } catch (Exception exception) {
-            return Object.class;
-        }
+        final ParameterizedType genericSuperclass = (ParameterizedType) object.getClass().getGenericSuperclass();
+        final Type actualTypeArgument = genericSuperclass.getActualTypeArguments()[index];
+        return actualTypeArgument instanceof ParameterizedType
+                ? (Class<?>) ((ParameterizedType) actualTypeArgument).getRawType()
+                : (Class<?>) actualTypeArgument;
     }
 
     public <T> Collector<T, ?, T> toSingleton() {
