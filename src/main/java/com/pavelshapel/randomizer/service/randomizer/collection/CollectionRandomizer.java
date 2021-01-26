@@ -1,14 +1,13 @@
 package com.pavelshapel.randomizer.service.randomizer.collection;
 
+import com.pavelshapel.randomizer.service.randomizer.MapRandomizer;
 import com.pavelshapel.randomizer.service.randomizer.Randomizer;
 import com.pavelshapel.randomizer.service.randomizer.primitive.PrimitiveRandomizer;
-import com.pavelshapel.randomizer.service.randomizer.MapRandomizer;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
@@ -42,13 +41,11 @@ public abstract class CollectionRandomizer<T> implements Randomizer<Collection<T
         }
     }
 
-    private List<T> implementRandomization(Object valueForSupplier, Range<Long> collectionSizeRange) {
+    private Collection<T> implementRandomization(Object valueForSupplier, Range<Long> collectionSizeRange) {
         final long collectionSize = getCollectionSize(collectionSizeRange);
         final Supplier<T> randomize = getSupplier(valueForSupplier);
 
-        return Stream.generate(randomize)
-                .limit(collectionSize)
-                .collect(Collectors.toList());
+        return Stream.generate(randomize).limit(collectionSize).collect(Collectors.toList());
     }
 
     private long getCollectionSize(Range<Long> range) {

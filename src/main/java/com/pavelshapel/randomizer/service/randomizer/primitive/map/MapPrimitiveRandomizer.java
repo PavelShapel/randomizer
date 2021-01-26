@@ -39,7 +39,6 @@ public final class MapPrimitiveRandomizer extends PrimitiveRandomizer<Map<String
     private Map<String, Object> createDefaultMap() {
         final Map<String, Object> notSortedMap = randomizers.stream().collect(getMapCollector());
         final TreeMap<String, Object> sortedMap = new TreeMap<>(Comparator.naturalOrder());
-
         sortedMap.putAll(notSortedMap);
 
         return sortedMap;

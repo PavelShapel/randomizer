@@ -1,5 +1,6 @@
 package com.pavelshapel.randomizer.service.randomizer.collection;
 
+import com.pavelshapel.randomizer.provider.FourParametersLongProvider;
 import com.pavelshapel.randomizer.provider.TwoParametersLongProvider;
 import com.pavelshapel.randomizer.service.randomizer.primitive.DoublePrimitiveRandomizer;
 import org.apache.commons.lang3.Range;
@@ -12,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.util.Collection;
 
+import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_LONG_RANGE;
 import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_BYTE_RANGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,38 +25,76 @@ import static org.assertj.core.api.Assertions.assertThat;
 )
 class DoubleCollectionRandomizerTest {
     @Autowired
-    private DoubleCollectionRandomizer doubleCollectionRandomizer;
+    private DoubleCollectionRandomizer collectionRandomizer;
 
     @Test
     void randomize_WithDefaultRange_ShouldReturnCollection() {
-        final Collection<Double> randomCollection = doubleCollectionRandomizer.randomize();
+        final Collection<Double> randomCollection = collectionRandomizer.randomize();
 
-        assertThat(randomCollection.size()).isBetween(
-                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum().intValue(),
-                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum().intValue()
+        final long collectionSize = randomCollection.stream()
+                .peek(value -> assertThat(value).isInstanceOf(Double.class))
+                .peek(value -> assertThat(value).isBetween(
+                        DEFAULT_LONG_RANGE.getValue().getMinimum().doubleValue(),
+                        DEFAULT_LONG_RANGE.getValue().getMaximum().doubleValue()))
+                .count();
+        assertThat(collectionSize).isBetween(
+                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum(),
+                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum()
         );
     }
 
     @ParameterizedTest
     @ArgumentsSource(TwoParametersLongProvider.class)
-    void randomize_WithBoundedRange_ShouldReturnCollection(long min, long max) {
+    void randomize_WithBoundedSizeRange_ShouldReturnCollection(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
-        final Collection<Double> randomCollection = doubleCollectionRandomizer.randomize(range);
+        final Collection<Double> randomCollection = collectionRandomizer.randomize(range);
 
-        assertThat(randomCollection.size()).isBetween(
-                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum().intValue(),
-                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum().intValue()
+        final long collectionSize = randomCollection.stream()
+                .peek(value -> assertThat(value).isInstanceOf(Double.class))
+                .peek(value -> assertThat(value).isBetween(
+                        DEFAULT_LONG_RANGE.getValue().getMinimum().doubleValue(),
+                        DEFAULT_LONG_RANGE.getValue().getMaximum().doubleValue()))
+                .count();
+        assertThat(collectionSize).isBetween(
+                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum(),
+                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum()
         );
     }
 
     @Test
     void randomize_NullAsParam_ShouldReturnCollection() {
-        final Collection<Double> randomCollection = doubleCollectionRandomizer.randomize(null);
+        final Collection<Double> randomCollection = collectionRandomizer.randomize(null);
 
-        assertThat(randomCollection.size()).isBetween(
-                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum().intValue(),
-                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum().intValue()
+        final long collectionSize = randomCollection.stream()
+                .peek(value -> assertThat(value).isInstanceOf(Double.class))
+                .peek(value -> assertThat(value).isBetween(
+                        DEFAULT_LONG_RANGE.getValue().getMinimum().doubleValue(),
+                        DEFAULT_LONG_RANGE.getValue().getMaximum().doubleValue()))
+                .count();
+        assertThat(collectionSize).isBetween(
+                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum(),
+                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum()
+        );
+    }
+
+    @ParameterizedTest
+    @ArgumentsSource(FourParametersLongProvider.class)
+    void randomize_WithBoundedValueSizeRange_ShouldReturnCollection(long minValue, long maxValue, long minSize, long maxSize) {
+        final Range<Long> rangeValue = Range.between(minValue, maxValue);
+        final Range<Long> rangeSize = Range.between(minSize, maxSize);
+
+        final Collection<Double> randomCollection = collectionRandomizer.randomize(rangeValue, rangeSize);
+
+        final long collectionSize = randomCollection.stream()
+                .peek(value -> assertThat(value).isInstanceOf(Double.class))
+                .peek(value -> assertThat(value).isBetween(
+                        DEFAULT_LONG_RANGE.getValue().getMinimum().doubleValue(),
+                        DEFAULT_LONG_RANGE.getValue().getMaximum().doubleValue()))
+                .count();
+        assertThat(collectionSize).isBetween(
+                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum(),
+                DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum()
         );
     }
 }

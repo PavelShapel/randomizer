@@ -1,7 +1,9 @@
 package com.pavelshapel.randomizer.controller;
 
 import com.pavelshapel.randomizer.entity.RandomEntity;
+import com.pavelshapel.randomizer.service.Utilities;
 import com.pavelshapel.randomizer.service.converter.JsonConverter;
+import com.pavelshapel.randomizer.service.randomizer.collection.CollectionRandomizer;
 import com.pavelshapel.randomizer.service.randomizer.primitive.PrimitiveRandomizer;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -19,7 +21,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.Optional;
 
 @AutoConfigureMockMvc
-@Import(JsonConverter.class)
+@Import({
+        JsonConverter.class,
+        Utilities.class
+})
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 abstract
@@ -30,6 +35,8 @@ class AbstractRestControllerTest<T> {
     MockMvc mockMvc;
     @MockBean
     PrimitiveRandomizer<T> primitiveRandomizer;
+    @MockBean
+    CollectionRandomizer<T> collectionRandomizer;
 
     @SneakyThrows
     protected MvcResult getMvcResult(RandomEntity<T> randomEntity) {
