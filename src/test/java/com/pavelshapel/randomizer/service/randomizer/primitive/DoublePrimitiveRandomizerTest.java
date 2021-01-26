@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ContextConfiguration(classes = DoublePrimitiveRandomizer.class)
 class DoublePrimitiveRandomizerTest {
     @Autowired
-    DoublePrimitiveRandomizer doublePrimitiveRandomizer;
+    private DoublePrimitiveRandomizer doublePrimitiveRandomizer;
 
     @Test
     void randomize_WithDefaultRange_ShouldReturnDouble() {

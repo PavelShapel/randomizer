@@ -30,7 +30,7 @@ public abstract class AbstractRestController<T> {
 
     @LogMethodResult(logLevel = "DEBUG")
     @GetMapping
-    protected ResponseEntity<RandomEntity<T>> getRandomEntity() {
+    protected ResponseEntity<RandomEntity<T>> get() {
         final RandomEntity<T> randomEntity = getRandomEntity(primitiveRandomizer.randomize());
         return ResponseEntity.ok(randomEntity);
     }

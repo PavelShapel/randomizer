@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ContextConfiguration(classes = BooleanPrimitiveRandomizer.class)
 class BooleanPrimitiveRandomizerTest {
     @Autowired
-    BooleanPrimitiveRandomizer booleanPrimitiveRandomizer;
+    private BooleanPrimitiveRandomizer booleanPrimitiveRandomizer;
 
     @Test
     void randomize_WithDefaultRange_ShouldReturnBoolean() {

@@ -1,4 +1,4 @@
-package com.pavelshapel.randomizer.service.randomizer.primitive.map;
+package com.pavelshapel.randomizer.service.randomizer;
 
 import java.util.Map;
 

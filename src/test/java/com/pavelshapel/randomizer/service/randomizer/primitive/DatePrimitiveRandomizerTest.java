@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ContextConfiguration(classes = DatePrimitiveRandomizer.class)
 class DatePrimitiveRandomizerTest {
     @Autowired
-    DatePrimitiveRandomizer datePrimitiveRandomizer;
+    private DatePrimitiveRandomizer datePrimitiveRandomizer;
 
     @Test
     void randomize_WithDefaultRange_ShouldReturnDate() {

@@ -2,12 +2,14 @@ package com.pavelshapel.randomizer.service.randomizer.collection;
 
 import com.pavelshapel.randomizer.service.randomizer.Randomizer;
 import com.pavelshapel.randomizer.service.randomizer.primitive.PrimitiveRandomizer;
+import com.pavelshapel.randomizer.service.randomizer.MapRandomizer;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
@@ -31,24 +33,23 @@ public abstract class CollectionRandomizer<T> implements Randomizer<Collection<T
         return randomize(null, range);
     }
 
-    public Collection<T> randomize(Range<Long> valueRange, Range<Long> sizeRange) {
+    public Collection<T> randomize(Object valueForSupplier, Range<Long> collectionSizeRange) {
         try {
-            return implementRandomization(valueRange, sizeRange);
+            return implementRandomization(valueForSupplier, collectionSizeRange);
         } catch (Exception exception) {
             log.error(RANDOMIZE_BY_DEFAULT, exception.toString());
             return randomize();
         }
     }
 
-    private List<T> implementRandomization(Range<Long> valueRange, Range<Long> sizeRange) {
-        final long collectionSize = getCollectionSize(sizeRange);
-        final Supplier<T> randomize = getSupplier(valueRange);
+    private List<T> implementRandomization(Object valueForSupplier, Range<Long> collectionSizeRange) {
+        final long collectionSize = getCollectionSize(collectionSizeRange);
+        final Supplier<T> randomize = getSupplier(valueForSupplier);
 
         return Stream.generate(randomize)
                 .limit(collectionSize)
                 .collect(Collectors.toList());
     }
-
 
     private long getCollectionSize(Range<Long> range) {
         final Range<Long> intersectionWithPositiveByteRange =
@@ -62,9 +63,15 @@ public abstract class CollectionRandomizer<T> implements Randomizer<Collection<T
         );
     }
 
-    private Supplier<T> getSupplier(Range<Long> range) {
-        return Objects.isNull(range)
-                ? primitiveRandomizer::randomize
-                : () -> primitiveRandomizer.randomize(range);
+    private Supplier<T> getSupplier(Object valueForSupplier) {
+        if (Objects.isNull(valueForSupplier)) {
+            return primitiveRandomizer::randomize;
+        }
+
+        if (primitiveRandomizer instanceof MapRandomizer && valueForSupplier instanceof Map) {
+            return () -> ((MapRandomizer<T>) primitiveRandomizer).randomize((Map<String, Object>) valueForSupplier);
+        } else {
+            return () -> primitiveRandomizer.randomize((Range<Long>) valueForSupplier);
+        }
     }
 }
