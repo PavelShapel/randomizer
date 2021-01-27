@@ -15,11 +15,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ContextConfiguration(classes = BooleanPrimitiveRandomizer.class)
 class BooleanPrimitiveRandomizerTest {
     @Autowired
-    private BooleanPrimitiveRandomizer booleanPrimitiveRandomizer;
+    private BooleanPrimitiveRandomizer primitiveRandomizer;
 
     @Test
     void randomize_WithDefaultRange_ShouldReturnBoolean() {
-        final Boolean randomBoolean = booleanPrimitiveRandomizer.randomize();
+        final Boolean randomBoolean = primitiveRandomizer.randomize();
 
         assertThat(randomBoolean).isIn(false, true);
     }
@@ -29,14 +29,14 @@ class BooleanPrimitiveRandomizerTest {
     void randomize_WithBoundedRange_ShouldReturnBoolean(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
-        final Boolean randomBoolean = booleanPrimitiveRandomizer.randomize(range);
+        final Boolean randomBoolean = primitiveRandomizer.randomize(range);
 
         assertThat(randomBoolean).isIn(false, true);
     }
 
     @Test
     void randomize_NullAsParam_ShouldReturnBoolean() {
-        final Boolean randomBoolean = booleanPrimitiveRandomizer.randomize(null);
+        final Boolean randomBoolean = primitiveRandomizer.randomize(null);
 
         assertThat(randomBoolean).isIn(false, true);
     }

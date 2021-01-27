@@ -16,11 +16,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ContextConfiguration(classes = DoublePrimitiveRandomizer.class)
 class DoublePrimitiveRandomizerTest {
     @Autowired
-    private DoublePrimitiveRandomizer doublePrimitiveRandomizer;
+    private DoublePrimitiveRandomizer primitiveRandomizer;
 
     @Test
     void randomize_WithDefaultRange_ShouldReturnDouble() {
-        final Double randomDouble = doublePrimitiveRandomizer.randomize();
+        final Double randomDouble = primitiveRandomizer.randomize();
 
         assertThat(randomDouble).isBetween(
                 DEFAULT_LONG_RANGE.getValue().getMinimum().doubleValue(),
@@ -33,7 +33,7 @@ class DoublePrimitiveRandomizerTest {
     void randomize_WithBoundedRange_ShouldReturnDouble(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
-        final Double randomDouble = doublePrimitiveRandomizer.randomize(range);
+        final Double randomDouble = primitiveRandomizer.randomize(range);
 
         assertThat(randomDouble).isBetween(
                 range.getMinimum().doubleValue(),
@@ -43,7 +43,7 @@ class DoublePrimitiveRandomizerTest {
 
     @Test
     void randomize_NullAsParam_ShouldReturnDouble() {
-        final Double randomDouble = doublePrimitiveRandomizer.randomize(null);
+        final Double randomDouble = primitiveRandomizer.randomize(null);
 
         assertThat(randomDouble).isBetween(
                 DEFAULT_LONG_RANGE.getValue().getMinimum().doubleValue(),

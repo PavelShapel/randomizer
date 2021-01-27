@@ -18,11 +18,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ContextConfiguration(classes = DatePrimitiveRandomizer.class)
 class DatePrimitiveRandomizerTest {
     @Autowired
-    private DatePrimitiveRandomizer datePrimitiveRandomizer;
+    private DatePrimitiveRandomizer primitiveRandomizer;
 
     @Test
     void randomize_WithDefaultRange_ShouldReturnDate() {
-        final Date randomDate = datePrimitiveRandomizer.randomize();
+        final Date randomDate = primitiveRandomizer.randomize();
 
         assertThat(randomDate.getTime()).isBetween(
                 DEFAULT_LONG_RANGE.getValue().getMinimum(),
@@ -35,7 +35,7 @@ class DatePrimitiveRandomizerTest {
     void randomize_WithBoundedRange_ShouldReturnDate(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
-        final Date randomDate = datePrimitiveRandomizer.randomize(range);
+        final Date randomDate = primitiveRandomizer.randomize(range);
 
         assertThat(randomDate.getTime()).isBetween(
                 DEFAULT_LONG_RANGE.getValue().getMinimum(),
@@ -46,7 +46,7 @@ class DatePrimitiveRandomizerTest {
 
     @Test
     void randomize_NullAsParam_ShouldReturnDate() {
-        final Date randomDate = datePrimitiveRandomizer.randomize(null);
+        final Date randomDate = primitiveRandomizer.randomize(null);
 
         assertThat(randomDate.getTime()).isBetween(
                 DEFAULT_LONG_RANGE.getValue().getMinimum(),

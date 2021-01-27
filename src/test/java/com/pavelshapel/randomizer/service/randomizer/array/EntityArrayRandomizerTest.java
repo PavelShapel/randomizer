@@ -1,9 +1,10 @@
-package com.pavelshapel.randomizer.service.randomizer.collection.map;
+package com.pavelshapel.randomizer.service.randomizer.array;
 
+import com.pavelshapel.randomizer.entity.Entity;
 import com.pavelshapel.randomizer.provider.FourParametersLongProvider;
 import com.pavelshapel.randomizer.provider.PrimitiveTypeProvider;
 import com.pavelshapel.randomizer.provider.TwoParametersLongProvider;
-import com.pavelshapel.randomizer.service.randomizer.MapRandomizer;
+import com.pavelshapel.randomizer.service.randomizer.EntityRandomizer;
 import com.pavelshapel.randomizer.service.randomizer.Randomizer;
 import org.apache.commons.lang3.Range;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,35 +14,33 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_BYTE_RANGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class MapCollectionRandomizerTest {
+class EntityArrayRandomizerTest {
     @Autowired
-    private MapCollectionRandomizer collectionRandomizer;
+    private EntityArrayRandomizer arrayRandomizer;
     @Autowired
     private List<Randomizer<?>> randomizers;
 
     @BeforeEach
     void setUp() {
-        randomizers.removeIf(randomizer -> randomizer instanceof MapRandomizer);
+        randomizers.removeIf(randomizer -> randomizer instanceof EntityRandomizer);
     }
 
     @Test
-    void randomize_WithDefaultRange_ShouldReturnCollection() {
-        final Collection<Map<String, Object>> randomCollection = collectionRandomizer.randomize();
+    void randomize_WithDefaultRange_ShouldReturnArray() {
+        final Entity[] randomArray = arrayRandomizer.randomize();
 
-        final long collectionSize = randomCollection.stream()
-                .peek(value -> assertThat(value).isInstanceOf(Map.class))
+        final long arrayLength = Arrays.stream(randomArray)
+                .peek(value -> assertThat(value).isInstanceOf(Entity.class))
                 .peek(value -> assertThat(value.size()).isSameAs(randomizers.size()))
                 .count();
-        assertThat(collectionSize).isBetween(
+        assertThat(arrayLength).isBetween(
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum(),
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum()
         );
@@ -49,16 +48,16 @@ class MapCollectionRandomizerTest {
 
     @ParameterizedTest
     @ArgumentsSource(TwoParametersLongProvider.class)
-    void randomize_WithBoundedSizeRange_ShouldReturnCollection(long min, long max) {
+    void randomize_WithBoundedSizeRange_ShouldReturnArray(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
-        final Collection<Map<String, Object>> randomCollection = collectionRandomizer.randomize(range);
+        final Entity[] randomArray = arrayRandomizer.randomize(range);
 
-        final long collectionSize = randomCollection.stream()
-                .peek(value -> assertThat(value).isInstanceOf(Map.class))
+        final long arrayLength = Arrays.stream(randomArray)
+                .peek(value -> assertThat(value).isInstanceOf(Entity.class))
                 .peek(value -> assertThat(value.size()).isSameAs(randomizers.size()))
                 .count();
-        assertThat(collectionSize).isBetween(
+        assertThat(arrayLength).isBetween(
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum(),
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum()
         );
@@ -66,17 +65,17 @@ class MapCollectionRandomizerTest {
 
     @ParameterizedTest
     @ArgumentsSource(FourParametersLongProvider.class)
-    void randomize_WithBoundedValueSizeRange_ShouldReturnCollection(long minValue, long maxValue, long minSize, long maxSize) {
+    void randomize_WithBoundedValueSizeRange_ShouldReturnArray(long minValue, long maxValue, long minSize, long maxSize) {
         final Range<Long> rangeValue = Range.between(minValue, maxValue);
         final Range<Long> rangeSize = Range.between(minSize, maxSize);
 
-        final Collection<Map<String, Object>> randomCollection = collectionRandomizer.randomize(rangeValue, rangeSize);
+        final Entity[] randomArray = arrayRandomizer.randomize(rangeValue, rangeSize);
 
-        final long collectionSize = randomCollection.stream()
-                .peek(value -> assertThat(value).isInstanceOf(Map.class))
+        final long arrayLength = Arrays.stream(randomArray)
+                .peek(value -> assertThat(value).isInstanceOf(Entity.class))
                 .peek(value -> assertThat(value.size()).isSameAs(randomizers.size()))
                 .count();
-        assertThat(collectionSize).isBetween(
+        assertThat(arrayLength).isBetween(
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum(),
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum()
         );
@@ -84,25 +83,23 @@ class MapCollectionRandomizerTest {
 
     @ParameterizedTest
     @ArgumentsSource(PrimitiveTypeProvider.class)
-    void randomize_MapAsParam_ShouldReturnMap(Class<?> targetClass) {
-        final Map<String, Object> map = createMap(targetClass);
+    void randomize_MapAsParam_ShouldReturnArray(Class<?> targetClass) {
+        final Entity randomEntity = createEntity(targetClass);
 
-        final Collection<Map<String, Object>> randomMapCollection = collectionRandomizer.randomize(map);
+        final Entity[] randomArray = arrayRandomizer.randomize(randomEntity);
 
-        final long collectionSize = randomMapCollection.stream()
-                .peek(value -> assertThat(value).isInstanceOf(Map.class))
-                .peek(value -> assertThat(value).hasSameSizeAs(map))
+        final long arrayLength = Arrays.stream(randomArray)
+                .peek(value -> assertThat(value).isInstanceOf(Entity.class))
+                .peek(value -> assertThat(value).hasSameSizeAs(randomEntity))
                 .peek(value -> assertThat(value.get("object")).isInstanceOf(targetClass))
                 .count();
-        assertThat(collectionSize).isBetween(
+        assertThat(arrayLength).isBetween(
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMinimum(),
                 DEFAULT_POSITIVE_BYTE_RANGE.getValue().getMaximum()
         );
     }
 
-    private Map<String, Object> createMap(Class<?> targetClass) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("object", targetClass.getSimpleName().toLowerCase());
-        return map;
+    private Entity createEntity(Class<?> targetClass) {
+        return new Entity("object", targetClass.getSimpleName().toLowerCase());
     }
 }
