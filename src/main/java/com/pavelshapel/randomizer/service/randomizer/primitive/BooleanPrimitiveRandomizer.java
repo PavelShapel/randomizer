@@ -7,6 +7,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public final class BooleanPrimitiveRandomizer extends PrimitiveRandomizer<Boolean> {
+    public BooleanPrimitiveRandomizer() {
+        super(Boolean.class);
+    }
+
     @Override
     public Boolean randomize() {
         return ThreadLocalRandom.current().nextBoolean();

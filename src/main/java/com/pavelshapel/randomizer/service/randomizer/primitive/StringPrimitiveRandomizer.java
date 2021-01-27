@@ -8,6 +8,10 @@ import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_B
 
 @Service
 public final class StringPrimitiveRandomizer extends PrimitiveRandomizer<String> {
+    public StringPrimitiveRandomizer() {
+        super(String.class);
+    }
+
     @Override
     public String randomize() {
         return randomize(DEFAULT_POSITIVE_BYTE_RANGE.getValue());

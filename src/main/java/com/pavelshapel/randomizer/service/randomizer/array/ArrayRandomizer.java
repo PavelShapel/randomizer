@@ -1,14 +1,17 @@
-package com.pavelshapel.randomizer.service.randomizer.collection;
+package com.pavelshapel.randomizer.service.randomizer.array;
 
-import com.pavelshapel.randomizer.service.randomizer.MapRandomizer;
+import com.pavelshapel.randomizer.entity.Entity;
+import com.pavelshapel.randomizer.service.randomizer.EntityRandomizer;
 import com.pavelshapel.randomizer.service.randomizer.Randomizer;
 import com.pavelshapel.randomizer.service.randomizer.primitive.PrimitiveRandomizer;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
-import java.util.Map;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
@@ -18,37 +21,45 @@ import java.util.stream.Stream;
 import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_BYTE_RANGE;
 
 @Log4j2
-public abstract class CollectionRandomizer<T> implements Randomizer<Collection<T>> {
+@Getter
+@RequiredArgsConstructor
+public abstract class ArrayRandomizer<T> implements Randomizer<T[]> {
+    private final Class<T[]> genericClass;
     @Autowired
     private PrimitiveRandomizer<T> primitiveRandomizer;
 
     @Override
-    public Collection<T> randomize() {
+    public T[] randomize() {
         return randomize(null, null);
     }
 
     @Override
-    public Collection<T> randomize(Range<Long> range) {
+    public T[] randomize(Range<Long> range) {
         return randomize(null, range);
     }
 
-    public Collection<T> randomize(Object valueForSupplier, Range<Long> collectionSizeRange) {
+    public T[] randomize(Object valueForSupplier, Range<Long> arrayLengthRange) {
         try {
-            return implementRandomization(valueForSupplier, collectionSizeRange);
+            return implementRandomization(valueForSupplier, arrayLengthRange);
         } catch (Exception exception) {
             log.error(RANDOMIZE_BY_DEFAULT, exception.toString());
             return randomize();
         }
     }
 
-    private Collection<T> implementRandomization(Object valueForSupplier, Range<Long> collectionSizeRange) {
-        final long collectionSize = getCollectionSize(collectionSizeRange);
-        final Supplier<T> randomize = getSupplier(valueForSupplier);
+    private T[] implementRandomization(Object valueForSupplier, Range<Long> arrayLengthRange) {
+        final long arrayLength = getArrayLength(arrayLengthRange);
+        final Supplier<T> supplier = getSupplier(valueForSupplier);
+        final List<T> randomCollection = Stream.generate(supplier)
+                .limit(arrayLength)
+                .collect(Collectors.toList());
 
-        return Stream.generate(randomize).limit(collectionSize).collect(Collectors.toList());
+        return collectionToArray(randomCollection);
     }
 
-    private long getCollectionSize(Range<Long> range) {
+    protected abstract T[] collectionToArray(Collection<T> collection);
+
+    private long getArrayLength(Range<Long> range) {
         final Range<Long> intersectionWithPositiveByteRange =
                 Objects.isNull(range)
                         ? DEFAULT_POSITIVE_BYTE_RANGE.getValue()
@@ -65,8 +76,8 @@ public abstract class CollectionRandomizer<T> implements Randomizer<Collection<T
             return primitiveRandomizer::randomize;
         }
 
-        if (primitiveRandomizer instanceof MapRandomizer && valueForSupplier instanceof Map) {
-            return () -> ((MapRandomizer<T>) primitiveRandomizer).randomize((Map<String, Object>) valueForSupplier);
+        if (valueForSupplier instanceof Entity) {
+            return () -> ((EntityRandomizer<T>) primitiveRandomizer).randomize((Entity) valueForSupplier);
         } else {
             return () -> primitiveRandomizer.randomize((Range<Long>) valueForSupplier);
         }

@@ -12,6 +12,10 @@ import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_YEAR_RANGE
 
 @Service
 public final class DatePrimitiveRandomizer extends PrimitiveRandomizer<Date> {
+    public DatePrimitiveRandomizer() {
+        super(Date.class);
+    }
+
     @Override
     public Date randomize() {
         return randomize(DEFAULT_YEAR_RANGE.getValue());
