@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 public class PrimitiveTypeProvider implements ArgumentsProvider {
     @Override
     public Stream<? extends Arguments> provideArguments(ExtensionContext context) {
-        return Stream.of(Long.class, Double.class, String.class, Boolean.class, Date.class).map(Arguments::of);
+        return Stream.of(Long.class, Double.class, String.class, Boolean.class, Date.class,
+                Long[].class, Double[].class, String[].class, Boolean[].class, Date[].class).map(Arguments::of);
     }
 }
