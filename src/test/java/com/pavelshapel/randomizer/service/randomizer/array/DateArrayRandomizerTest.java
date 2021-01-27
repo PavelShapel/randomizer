@@ -29,7 +29,7 @@ class DateArrayRandomizerTest {
     private DateArrayRandomizer arrayRandomizer;
 
     @Test
-    void randomize_WithDefaultRange_ShouldReturnArray() {
+    void randomize_WithoutParams_ShouldReturnArray() {
         final Date[] randomArray = arrayRandomizer.randomize();
 
         final long arrayLength = Arrays.stream(randomArray)
@@ -46,7 +46,7 @@ class DateArrayRandomizerTest {
 
     @ParameterizedTest
     @ArgumentsSource(TwoParametersLongProvider.class)
-    void randomize_WithBoundedSizeRange_ShouldReturnArray(long min, long max) {
+    void randomize_RangeAsParam_ShouldReturnArray(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
         final Date[] randomArray = arrayRandomizer.randomize(range);
@@ -81,7 +81,7 @@ class DateArrayRandomizerTest {
 
     @ParameterizedTest
     @ArgumentsSource(FourParametersLongProvider.class)
-    void randomize_WithBoundedValueSizeRange_ShouldReturnArray(long minValue, long maxValue, long minSize, long maxSize) {
+    void randomize_ValueSizeRangesAsParams_ShouldReturnArray(long minValue, long maxValue, long minSize, long maxSize) {
         final Range<Long> rangeValue = Range.between(minValue, maxValue);
         final Range<Long> rangeSize = Range.between(minSize, maxSize);
 

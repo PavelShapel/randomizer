@@ -27,7 +27,7 @@ class BooleanArrayRandomizerTest {
     private BooleanArrayRandomizer arrayRandomizer;
 
     @Test
-    void randomize_WithDefaultRange_ShouldReturnArray() {
+    void randomize_WithoutParams_ShouldReturnArray() {
         final Boolean[] randomArray = arrayRandomizer.randomize();
 
         final long arrayLength = Arrays.stream(randomArray)
@@ -42,7 +42,7 @@ class BooleanArrayRandomizerTest {
 
     @ParameterizedTest
     @ArgumentsSource(TwoParametersLongProvider.class)
-    void randomize_WithBoundedSizeRange_ShouldReturnArray(long min, long max) {
+    void randomize_RangeAsParam_ShouldReturnArray(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
         final Boolean[] randomArray = arrayRandomizer.randomize(range);
@@ -73,7 +73,7 @@ class BooleanArrayRandomizerTest {
 
     @ParameterizedTest
     @ArgumentsSource(FourParametersLongProvider.class)
-    void randomize_WithBoundedValueSizeRange_ShouldReturnArray(long minValue, long maxValue, long minSize, long maxSize) {
+    void randomize_ValueSizeRangesAsParams_ShouldReturnArray(long minValue, long maxValue, long minSize, long maxSize) {
         final Range<Long> rangeValue = Range.between(minValue, maxValue);
         final Range<Long> rangeSize = Range.between(minSize, maxSize);
 

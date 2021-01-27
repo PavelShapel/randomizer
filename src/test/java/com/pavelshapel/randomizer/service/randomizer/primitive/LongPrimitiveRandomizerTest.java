@@ -19,7 +19,7 @@ class LongPrimitiveRandomizerTest {
     private LongPrimitiveRandomizer primitiveRandomizer;
 
     @Test
-    void randomize_WithDefaultRange_ShouldReturnLong() {
+    void randomize_WithoutParams_ShouldReturnLong() {
         final Long randomLong = primitiveRandomizer.randomize();
 
         assertThat(randomLong).isBetween(
@@ -30,7 +30,7 @@ class LongPrimitiveRandomizerTest {
 
     @ParameterizedTest
     @ArgumentsSource(TwoParametersLongProvider.class)
-    void randomize_WithBoundedRange_ShouldReturnLong(long min, long max) {
+    void randomize_RangeAsParam_ShouldReturnLong(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
         final Long randomLong = primitiveRandomizer.randomize(range);

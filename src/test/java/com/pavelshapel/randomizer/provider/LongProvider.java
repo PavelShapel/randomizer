@@ -38,6 +38,6 @@ public abstract class LongProvider implements ArgumentsProvider {
     }
 
     private Object[] getArguments(int argumentsCount) {
-        return ThreadLocalRandom.current().ints(argumentsCount).boxed().toArray();
+        return ThreadLocalRandom.current().longs(argumentsCount).boxed().toArray();
     }
 }

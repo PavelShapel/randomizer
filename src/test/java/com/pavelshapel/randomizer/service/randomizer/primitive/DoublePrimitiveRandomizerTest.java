@@ -19,7 +19,7 @@ class DoublePrimitiveRandomizerTest {
     private DoublePrimitiveRandomizer primitiveRandomizer;
 
     @Test
-    void randomize_WithDefaultRange_ShouldReturnDouble() {
+    void randomize_WithoutParams_ShouldReturnDouble() {
         final Double randomDouble = primitiveRandomizer.randomize();
 
         assertThat(randomDouble).isBetween(
@@ -30,7 +30,7 @@ class DoublePrimitiveRandomizerTest {
 
     @ParameterizedTest
     @ArgumentsSource(TwoParametersLongProvider.class)
-    void randomize_WithBoundedRange_ShouldReturnDouble(long min, long max) {
+    void randomize_RangeAsParam_ShouldReturnDouble(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
         final Double randomDouble = primitiveRandomizer.randomize(range);

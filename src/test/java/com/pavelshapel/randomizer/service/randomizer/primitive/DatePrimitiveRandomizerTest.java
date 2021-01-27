@@ -21,7 +21,7 @@ class DatePrimitiveRandomizerTest {
     private DatePrimitiveRandomizer primitiveRandomizer;
 
     @Test
-    void randomize_WithDefaultRange_ShouldReturnDate() {
+    void randomize_WithoutParams_ShouldReturnDate() {
         final Date randomDate = primitiveRandomizer.randomize();
 
         assertThat(randomDate.getTime()).isBetween(
@@ -32,7 +32,7 @@ class DatePrimitiveRandomizerTest {
 
     @ParameterizedTest
     @ArgumentsSource(TwoParametersLongProvider.class)
-    void randomize_WithBoundedRange_ShouldReturnDate(long min, long max) {
+    void randomize_RangeAsParam_ShouldReturnDate(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
         final Date randomDate = primitiveRandomizer.randomize(range);

@@ -30,7 +30,7 @@ class EntityPrimitiveRandomizerTest {
     }
 
     @Test
-    void randomize_WithDefaultRange_ShouldReturnEntity() {
+    void randomize_WithoutParams_ShouldReturnEntity() {
         final Entity randomEntity = primitiveRandomizer.randomize();
 
         assertThat(randomEntity).isNotNull();
@@ -38,7 +38,7 @@ class EntityPrimitiveRandomizerTest {
     }
 
     @Test
-    void randomize_WithBoundedRange_ShouldReturnEntity() {
+    void randomize_RangeAsParam_ShouldReturnEntity() {
         final Entity randomEntity =
                 primitiveRandomizer.randomize(DEFAULT_POSITIVE_BYTE_RANGE.getValue());
 

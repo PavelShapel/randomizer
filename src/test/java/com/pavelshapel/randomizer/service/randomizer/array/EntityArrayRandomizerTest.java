@@ -33,7 +33,7 @@ class EntityArrayRandomizerTest {
     }
 
     @Test
-    void randomize_WithDefaultRange_ShouldReturnArray() {
+    void randomize_WithoutParams_ShouldReturnArray() {
         final Entity[] randomArray = arrayRandomizer.randomize();
 
         final long arrayLength = Arrays.stream(randomArray)
@@ -48,7 +48,7 @@ class EntityArrayRandomizerTest {
 
     @ParameterizedTest
     @ArgumentsSource(TwoParametersLongProvider.class)
-    void randomize_WithBoundedSizeRange_ShouldReturnArray(long min, long max) {
+    void randomize_RangeAsParam_ShouldReturnArray(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
         final Entity[] randomArray = arrayRandomizer.randomize(range);
@@ -65,7 +65,7 @@ class EntityArrayRandomizerTest {
 
     @ParameterizedTest
     @ArgumentsSource(FourParametersLongProvider.class)
-    void randomize_WithBoundedValueSizeRange_ShouldReturnArray(long minValue, long maxValue, long minSize, long maxSize) {
+    void randomize_WithValueSizeRange_ShouldReturnArray(long minValue, long maxValue, long minSize, long maxSize) {
         final Range<Long> rangeValue = Range.between(minValue, maxValue);
         final Range<Long> rangeSize = Range.between(minSize, maxSize);
 
@@ -83,7 +83,7 @@ class EntityArrayRandomizerTest {
 
     @ParameterizedTest
     @ArgumentsSource(PrimitiveTypeProvider.class)
-    void randomize_MapAsParam_ShouldReturnArray(Class<?> targetClass) {
+    void randomize_EntityAsParam_ShouldReturnArray(Class<?> targetClass) {
         final Entity randomEntity = createEntity(targetClass);
 
         final Entity[] randomArray = arrayRandomizer.randomize(randomEntity);

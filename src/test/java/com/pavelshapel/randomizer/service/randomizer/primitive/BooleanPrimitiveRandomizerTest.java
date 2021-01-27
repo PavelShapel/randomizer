@@ -18,7 +18,7 @@ class BooleanPrimitiveRandomizerTest {
     private BooleanPrimitiveRandomizer primitiveRandomizer;
 
     @Test
-    void randomize_WithDefaultRange_ShouldReturnBoolean() {
+    void randomize_WithoutParams_ShouldReturnBoolean() {
         final Boolean randomBoolean = primitiveRandomizer.randomize();
 
         assertThat(randomBoolean).isIn(false, true);
@@ -26,7 +26,7 @@ class BooleanPrimitiveRandomizerTest {
 
     @ParameterizedTest
     @ArgumentsSource(TwoParametersLongProvider.class)
-    void randomize_WithBoundedRange_ShouldReturnBoolean(long min, long max) {
+    void randomize_RangeAsParam_ShouldReturnBoolean(long min, long max) {
         final Range<Long> range = Range.between(min, max);
 
         final Boolean randomBoolean = primitiveRandomizer.randomize(range);
