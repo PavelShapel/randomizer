@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +30,10 @@ class TaskTest {
     LongArrayRandomizer longArrayRandomizer;
 
     @Test
-    void test() {
+    void test() throws IntrospectionException {
+
+        System.out.println(Introspector.getBeanInfo(LongArrayRandomizer.class));
+        System.out.println(Introspector.decapitalize(LongArrayRandomizer.class.getSimpleName()));
 
         //final List<Student> students = getStudents();
         final List<Student> students = getRandomStudents();

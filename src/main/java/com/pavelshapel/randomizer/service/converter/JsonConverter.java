@@ -2,19 +2,23 @@ package com.pavelshapel.randomizer.service.converter;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
 public class JsonConverter {
     private final ObjectMapper objectMapper;
+
+    @Autowired
+    public JsonConverter(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     public Optional<String> pojoToJson(Object object) {
         try {

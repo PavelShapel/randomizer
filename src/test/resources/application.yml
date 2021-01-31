@@ -36,6 +36,8 @@ server:
       enabled: false
   port: 8882
 spring:
+  main:
+    lazy-initialization: true
   application:
     name: randomizer
   mvc:
