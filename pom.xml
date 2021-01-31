@@ -17,7 +17,9 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<lombok.version>1.18.16</lombok.version>
 		<apache.version>3.11</apache.version>
+		<json.version>20201115</json.version>
 	</properties>
 
 	<dependencies>
@@ -35,6 +37,7 @@
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
+			<version>${json.version}</version>
 		</dependency>
 
 		<dependency>
