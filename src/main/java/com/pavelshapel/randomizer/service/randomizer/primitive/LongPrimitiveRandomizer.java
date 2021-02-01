@@ -1,30 +1,18 @@
-package com.pavelshapel.randomizer.service.randomizer.primitive;
-
-import org.apache.commons.lang3.Range;
-import org.springframework.stereotype.Service;
-
-import java.util.concurrent.ThreadLocalRandom;
-
-import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_LONG_RANGE;
-
-@Service
-public final class LongPrimitiveRandomizer extends PrimitiveRandomizer<Long> {
-    public LongPrimitiveRandomizer() {
-        super(Long.class);
-    }
-
-    @Override
-    public Long randomize() {
-        return randomize(DEFAULT_LONG_RANGE.getValue());
-    }
-
-    @Override
-    protected Long implementRandomization(Range<Long> range) {
-        return ThreadLocalRandom.current().nextLong(
-                range.getMinimum(),
-                range.getMaximum()
-        );
-    }
-
-    
-}
+//package com.pavelshapel.randomizer.service.randomizer.primitive;
+//
+//import com.pavelshapel.randomizer.entity.valuespecification.AbstractValueSpecification;
+//import com.pavelshapel.randomizer.service.randomizer.Randomizer;
+//import org.springframework.stereotype.Service;
+//
+//import java.util.concurrent.ThreadLocalRandom;
+//
+//@Service
+//public final class LongPrimitiveRandomizer implements Randomizer<Long> {
+//    @Override
+//    public Long randomize(AbstractValueSpecification<Long> valueSpecification) {
+//        return ThreadLocalRandom.current().nextLong(
+//                valueSpecification.getRange().getMinimum(),
+//                valueSpecification.getRange().getMaximum()
+//        );
+//    }
+//}

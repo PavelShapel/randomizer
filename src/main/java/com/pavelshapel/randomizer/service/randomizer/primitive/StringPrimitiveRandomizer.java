@@ -1,30 +1,17 @@
-package com.pavelshapel.randomizer.service.randomizer.primitive;
-
-import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.Range;
-import org.springframework.stereotype.Service;
-
-import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_POSITIVE_BYTE_RANGE;
-
-@Service
-public final class StringPrimitiveRandomizer extends PrimitiveRandomizer<String> {
-    public StringPrimitiveRandomizer() {
-        super(String.class);
-    }
-
-    @Override
-    public String randomize() {
-        return randomize(DEFAULT_POSITIVE_BYTE_RANGE.getValue());
-    }
-
-    @Override
-    protected String implementRandomization(Range<Long> range) {
-        final Range<Long> intersectionWithPositiveByteRange =
-                DEFAULT_POSITIVE_BYTE_RANGE.getValue().intersectionWith(range);
-
-        return RandomStringUtils.randomAlphanumeric(
-                intersectionWithPositiveByteRange.getMinimum().intValue(),
-                intersectionWithPositiveByteRange.getMaximum().intValue()
-        );
-    }
-}
+//package com.pavelshapel.randomizer.service.randomizer.primitive;
+//
+//import com.pavelshapel.randomizer.entity.valuespecification.AbstractValueSpecification;
+//import com.pavelshapel.randomizer.service.randomizer.Randomizer;
+//import org.apache.commons.lang3.RandomStringUtils;
+//import org.springframework.stereotype.Service;
+//
+//@Service
+//public final class StringPrimitiveRandomizer implements Randomizer<String> {
+//    @Override
+//    public String randomize(AbstractValueSpecification<String> valueSpecification) {
+//        return RandomStringUtils.randomAlphanumeric(
+//                valueSpecification.getRange().getMinimum().intValue(),
+//                valueSpecification.getRange().getMaximum().intValue()
+//        );
+//    }
+//}
