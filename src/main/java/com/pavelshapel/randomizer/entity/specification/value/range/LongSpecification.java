@@ -1,4 +1,4 @@
-package com.pavelshapel.randomizer.entity.valuespecification.range;
+package com.pavelshapel.randomizer.entity.specification.value.range;
 
 
 import org.apache.commons.lang3.Range;
@@ -10,13 +10,9 @@ import static com.pavelshapel.randomizer.entity.DefaultRanges.DEFAULT_LONG_RANGE
 
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class BooleanValueSpecification extends AbstractRangeValueSpecification<Boolean> {
-    public BooleanValueSpecification() {
-        super(Boolean.class);
-    }
-
-    public BooleanValueSpecification(Range<Long> range) {
-        super(Boolean.class, range);
+public final class LongSpecification extends AbstractRangeSpecification<Long> {
+    public LongSpecification() {
+        super(Long.class);
     }
 
     @Override

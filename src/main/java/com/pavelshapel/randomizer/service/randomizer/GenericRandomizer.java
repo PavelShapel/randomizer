@@ -8,7 +8,8 @@ import org.apache.commons.lang3.Range;
 @Value
 @Builder
 public class GenericRandomizer {
-    @NonNull Class<?> targetClass;
-    Range<Long> value;
-    Range<Long> size;
+    @NonNull
+    Class<?> valueClass;
+    Object initialObject;
+    Range<Long> arrayRange;
 }

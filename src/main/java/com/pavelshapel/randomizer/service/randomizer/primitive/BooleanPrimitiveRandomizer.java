@@ -1,6 +1,6 @@
 //package com.pavelshapel.randomizer.service.randomizer.primitive;
 //
-//import com.pavelshapel.randomizer.entity.valuespecification.AbstractValueSpecification;
+//import com.pavelshapel.randomizer.entity.specification.value.AbstractValueSpecification;
 //import com.pavelshapel.randomizer.service.randomizer.Randomizer;
 //import org.springframework.stereotype.Service;
 //

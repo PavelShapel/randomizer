@@ -1,21 +1,19 @@
 package com.pavelshapel.randomizer.entity.valuespecification.entity;
 
+import com.pavelshapel.randomizer.entity.specification.value.entity.EntitySpecification;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class EntityValueSpecificationTest {
     @Autowired
-    EntityValueSpecification valueSpecification;
+    EntitySpecification valueSpecification;
 
     @Test
-    void constructor_WithoutParams_ShouldReturnEntity() {
-
-
+    void initialize_ShouldReturnNotNull() {
         assertThat(valueSpecification).isNotNull();
     }
 }
