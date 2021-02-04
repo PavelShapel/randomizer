@@ -1,4 +1,4 @@
-package com.pavelshapel.randomizer.controller;
+package com.pavelshapel.randomizer.controller.infostructure;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;

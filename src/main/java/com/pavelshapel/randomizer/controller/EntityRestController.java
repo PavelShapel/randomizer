@@ -1,26 +1,35 @@
-//package com.pavelshapel.randomizer.controller;
-//
-//import com.pavelshapel.randomizer.aop.LogMethodResult;
-//import com.pavelshapel.randomizer.entity.Entity;
-//import com.pavelshapel.randomizer.entity.RandomEntity;
-//import com.pavelshapel.randomizer.service.randomizer.array.EntityArrayRandomizer;
-//import com.pavelshapel.randomizer.service.randomizer.primitive.EntityPrimitiveRandomizer;
-//import org.apache.commons.lang3.Range;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.Arrays;
-//
-//@RestController
-//@RequestMapping("/entity")
-//public class EntityRestController extends AbstractRestController<Entity> {
-//    @LogMethodResult(logLevel = "DEBUG")
-//    @PostMapping
-//    public ResponseEntity<RandomEntity<Entity>> postEntity(@RequestBody Entity entity) {
-//        final Entity randomEntity = ((EntityPrimitiveRandomizer) getPrimitiveRandomizer()).randomize(entity);
-//
-//        return ResponseEntity.ok(createRandomEntity(randomEntity));
-//    }
+package com.pavelshapel.randomizer.controller;
+
+import com.pavelshapel.commonspringbootstarter.utils.randomizer.entity.Entity;
+import com.pavelshapel.commonspringbootstarter.utils.randomizer.service.impl.EntityRandomizer;
+import com.pavelshapel.commonspringbootstarter.utils.web.wrapper.typed.TypedResponseWrapperController;
+import com.pavelshapel.randomizer.aop.LogMethodResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@TypedResponseWrapperController
+@RequestMapping("/entity")
+public class EntityRestController extends AbstractRestController<Entity, Entity> {
+    @Autowired
+    public EntityRestController(EntityRandomizer randomizer) {
+        super(randomizer);
+    }
+
+    @Override
+    public EntityRandomizer getRandomizer() {
+        return ((EntityRandomizer) super.getRandomizer());
+    }
+
+    @LogMethodResult(logLevel = "DEBUG")
+    @PostMapping
+    public ResponseEntity<Entity> postEntity(@RequestBody Entity entity) {
+        final Entity randomEntity = getRandomizer().randomizeBoundedValue(entity);
+
+        return ResponseEntity.ok(randomEntity);
+    }
 //
 //    @LogMethodResult(logLevel = "DEBUG")
 //    @PostMapping(PATH_ARRAY)
@@ -46,4 +55,4 @@
 //
 //        return ResponseEntity.ok(response);
 //    }
-//}
+}

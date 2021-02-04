@@ -45,4 +45,7 @@ spring:
   resources:
     add-mappings: false
   pavelshapel:
-    srteamUtils: true
+    stream-utils: true
+    randomizers: true
+    json-converter: true
+    wrappers: true
