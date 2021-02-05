@@ -6,9 +6,12 @@ import com.pavelshapel.commonspringbootstarter.utils.web.wrapper.typed.TypedResp
 import com.pavelshapel.randomizer.aop.LogMethodResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Collection;
 
 @TypedResponseWrapperController
 @RequestMapping("/entity")
@@ -25,34 +28,29 @@ public class EntityRestController extends AbstractRestController<Entity, Entity>
 
     @LogMethodResult(logLevel = "DEBUG")
     @PostMapping
-    public ResponseEntity<Entity> postEntity(@RequestBody Entity entity) {
-        final Entity randomEntity = getRandomizer().randomizeBoundedValue(entity);
+    public ResponseEntity<Entity> postBoundedValue(@RequestBody Entity entity) {
+        final Entity randomValue = getRandomizer().randomizeBoundedValue(entity);
 
-        return ResponseEntity.ok(randomEntity);
+        return ResponseEntity.ok(randomValue);
     }
-//
-//    @LogMethodResult(logLevel = "DEBUG")
-//    @PostMapping(PATH_ARRAY)
-//    public ResponseEntity<Object[]> postArray(@RequestBody Entity entity) {
-//        final Entity[] randomEntities = ((EntityArrayRandomizer) getArrayRandomizer()).randomize(entity);
-//        final Object[] response = Arrays.stream(randomEntities)
-//                .map(this::createRandomEntity)
-//                .toArray();
-//
-//        return ResponseEntity.ok(response);
-//    }
-//
-//    @LogMethodResult(logLevel = "DEBUG")
-//    @PostMapping(PATH_ARRAY + PATH_SIZE_RANGE)
-//    public ResponseEntity<Object[]> postArrayBySize(
-//            @RequestBody Entity entity,
-//            @PathVariable long minSize,
-//            @PathVariable long maxSize) {
-//        final Entity[] randomEntities = getArrayRandomizer().randomize(entity, Range.between(minSize, maxSize));
-//        final Object[] response = Arrays.stream(randomEntities)
-//                .map(this::createRandomEntity)
-//                .toArray();
-//
-//        return ResponseEntity.ok(response);
-//    }
+
+    @LogMethodResult(logLevel = "DEBUG")
+    @PostMapping(PATH_COLLECTION)
+    public ResponseEntity<Collection<Entity>> postBoundedValueCollection(@RequestBody Entity entity) {
+        final Collection<Entity> randomCollection = getRandomizer().randomizeBoundedValueCollection(entity);
+
+        return ResponseEntity.ok(randomCollection);
+    }
+
+    @LogMethodResult(logLevel = "DEBUG")
+    @PostMapping(PATH_COLLECTION + PATH_COLLECTION_RANGE)
+    public ResponseEntity<Collection<Entity>> postBoundedValueBoundedCollection(
+            @RequestBody Entity entity,
+            @PathVariable long minCollection,
+            @PathVariable long maxCollection) {
+        final Collection<Entity> randomCollection = getRandomizer()
+                .randomizeBoundedValueBoundedCollection(entity, minCollection, maxCollection);
+
+        return ResponseEntity.ok(randomCollection);
+    }
 }
