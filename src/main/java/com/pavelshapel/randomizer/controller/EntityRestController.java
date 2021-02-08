@@ -1,9 +1,9 @@
 package com.pavelshapel.randomizer.controller;
 
+import com.pavelshapel.commonspringbootstarter.utils.aop.log.methodresult.LogMethodResult;
 import com.pavelshapel.commonspringbootstarter.utils.randomizer.entity.Entity;
 import com.pavelshapel.commonspringbootstarter.utils.randomizer.service.impl.EntityRandomizer;
 import com.pavelshapel.commonspringbootstarter.utils.web.wrapper.typed.TypedResponseWrapperController;
-import com.pavelshapel.randomizer.aop.LogMethodResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -1,7 +1,7 @@
 package com.pavelshapel.randomizer.controller;
 
+import com.pavelshapel.commonspringbootstarter.utils.aop.log.methodresult.LogMethodResult;
 import com.pavelshapel.commonspringbootstarter.utils.randomizer.service.impl.AbstractRangeRandomizer;
-import com.pavelshapel.randomizer.aop.LogMethodResult;
 import org.apache.commons.lang3.Range;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

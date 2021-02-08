@@ -1,7 +1,7 @@
 package com.pavelshapel.randomizer.controller;
 
+import com.pavelshapel.commonspringbootstarter.utils.aop.log.methodresult.LogMethodResult;
 import com.pavelshapel.commonspringbootstarter.utils.randomizer.service.AbstractRandomizer;
-import com.pavelshapel.randomizer.aop.LogMethodResult;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.ResponseEntity;
