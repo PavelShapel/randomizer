@@ -1,18 +1,19 @@
 package com.pavelshapel.randomizer.controller;
 
-import com.pavelshapel.commonspringbootstarter.utils.aop.log.methodresult.LogMethodResult;
-import com.pavelshapel.commonspringbootstarter.utils.randomizer.entity.Entity;
-import com.pavelshapel.commonspringbootstarter.utils.randomizer.entity.specification.Specification;
-import com.pavelshapel.commonspringbootstarter.utils.randomizer.service.collection.impl.GenericCollectionRandomizer;
-import com.pavelshapel.commonspringbootstarter.utils.randomizer.service.factory.impl.GenericRandomizerFactory;
+import com.pavelshapel.aop.spring.boot.starter.log.method.result.LogMethodResult;
+import com.pavelshapel.random.spring.boot.starter.randomizer.entity.Entity;
+import com.pavelshapel.random.spring.boot.starter.randomizer.entity.Specification;
+import com.pavelshapel.random.spring.boot.starter.randomizer.service.collection.impl.GenericCollectionRandomizer;
+import com.pavelshapel.random.spring.boot.starter.randomizer.service.factory.impl.GenericRandomizerFactory;
+import com.pavelshapel.web.spring.boot.starter.wrapper.TypedResponseWrapperRestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
-@RestController
-//@TypedResponseWrapperController
+@TypedResponseWrapperRestController
+@RequestMapping("/")
 public class RandomRestController {
     public static final String PATH_TYPE = "/{type:[[a-zA-Z]]+}";
     public static final String PATH_RANGE = "/{min:[\\d]+}/{max:[\\d]+}";
@@ -22,13 +23,13 @@ public class RandomRestController {
     @Autowired
     private GenericCollectionRandomizer genericCollectionRandomizer;
 
-    @LogMethodResult(logLevel = "DEBUG")
+    @LogMethodResult
     @GetMapping(PATH_TYPE)
     public ResponseEntity<Object> randomize(@PathVariable String type) {
         return ResponseEntity.ok(genericRandomizerFactory.getRandomizer(type).randomize());
     }
 
-    @LogMethodResult(logLevel = "DEBUG")
+    @LogMethodResult
     @GetMapping(PATH_TYPE + PATH_RANGE)
     public ResponseEntity<Object> randomize(@PathVariable String type,
                                             @PathVariable long min,
@@ -36,19 +37,19 @@ public class RandomRestController {
         return ResponseEntity.ok(genericRandomizerFactory.getRandomizer(type).randomize(min, max));
     }
 
-    @LogMethodResult(logLevel = "DEBUG")
+    @LogMethodResult
     @PostMapping
     public ResponseEntity<Object> randomize(@RequestBody Specification specification) {
         return ResponseEntity.ok(genericRandomizerFactory.getRandomizer(specification).randomize(specification));
     }
 
-    @LogMethodResult(logLevel = "DEBUG")
+    @LogMethodResult
     @PostMapping("/collection")
-    public ResponseEntity<Object> randomize(@RequestBody Collection<? extends Specification> specifications) {
+    public ResponseEntity<Object> randomize(@RequestBody Collection<Specification> specifications) {
         return ResponseEntity.ok(genericCollectionRandomizer.randomize(specifications));
     }
 
-    @LogMethodResult(logLevel = "DEBUG")
+    @LogMethodResult
     @PostMapping("/entity")
     public ResponseEntity<Object> randomize(@RequestBody Entity entity) {
         return ResponseEntity.ok(genericCollectionRandomizer.randomize(entity));

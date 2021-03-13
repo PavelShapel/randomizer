@@ -17,30 +17,32 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <json.version>20201115</json.version>
+        <pavelshapel.version>1.0.0</pavelshapel.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
+            <groupId>com.pavelshapel</groupId>
+            <artifactId>random-spring-boot-starter</artifactId>
+            <version>${pavelshapel.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.pavelshapel</groupId>
-            <artifactId>common-spring-boot-starter</artifactId>
-            <version>1.0.0</version>
+            <artifactId>aop-spring-boot-starter</artifactId>
+            <version>${pavelshapel.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>com.pavelshapel</groupId>
+            <artifactId>json-spring-boot-starter</artifactId>
+            <version>${pavelshapel.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
+            <groupId>com.pavelshapel</groupId>
+            <artifactId>web-spring-boot-starter</artifactId>
+            <version>${pavelshapel.version}</version>
         </dependency>
 
         <dependency>
