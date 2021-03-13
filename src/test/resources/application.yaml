@@ -1,35 +1,6 @@
-management:
-  endpoint:
-    health:
-      enabled: true
-      show-details: always
-      status:
-        http-mapping:
-          down: 500
-          out_of_service: 503
-          warning: 500
-    shutdown:
-      enabled: true
-    mappings:
-      enabled: true
-  endpoints:
-    enabled-by-default: false
-    web:
-      exposure:
-        include: "*"
-  health:
-    probes:
-      enabled: true
 logging:
   level:
-    org:
-      springframework:
-        web:
-          servlet:
-            DispatcherServlet: DEBUG
     root: DEBUG
-  pattern:
-    console: "%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{0}.%method - %message%n"
 server:
   error:
     whitelabel:
