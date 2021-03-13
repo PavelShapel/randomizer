@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.pavelshapel</groupId>
     <artifactId>randomizer</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>randomizer</name>
     <description>service is developed to be able to generate random values</description>
