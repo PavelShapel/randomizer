@@ -5,14 +5,13 @@ import com.pavelshapel.random.spring.boot.starter.randomizer.entity.Entity;
 import com.pavelshapel.random.spring.boot.starter.randomizer.entity.Specification;
 import com.pavelshapel.random.spring.boot.starter.randomizer.service.collection.impl.GenericCollectionRandomizer;
 import com.pavelshapel.random.spring.boot.starter.randomizer.service.factory.impl.GenericRandomizerFactory;
-import com.pavelshapel.web.spring.boot.starter.wrapper.TypedResponseWrapperRestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
-@TypedResponseWrapperRestController
+@RestController
 @RequestMapping("/")
 public class RandomRestController {
     public static final String PATH_TYPE = "/{type:[[a-zA-Z]]+}";
