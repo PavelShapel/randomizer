@@ -13,7 +13,7 @@ RUN java -Djarmode=layertools -jar application.jar extract
 
 FROM openjdk:8-jdk-alpine
 LABEL MAINTAINER="pavel.shapel@gmail.com"
-LABEL SERVICE="as-album"
+LABEL SERVICE="randomizer"
 RUN apk update && apk upgrade && apk add bash
 WORKDIR application
 EXPOSE 8882
