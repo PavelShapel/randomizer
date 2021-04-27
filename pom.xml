@@ -13,7 +13,7 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>randomizer</name>
-    <description>service is developed to be able to generate random values</description>
+    <description>Service1 is developed to be able to generate random values</description>
 
     <properties>
         <java.version>1.8</java.version>
