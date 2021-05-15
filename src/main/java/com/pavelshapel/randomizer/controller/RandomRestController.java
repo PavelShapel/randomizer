@@ -3,24 +3,25 @@ package com.pavelshapel.randomizer.controller;
 import com.pavelshapel.aop.spring.boot.starter.log.method.result.LogMethodResult;
 import com.pavelshapel.random.spring.boot.starter.randomizer.entity.Entity;
 import com.pavelshapel.random.spring.boot.starter.randomizer.entity.Specification;
-import com.pavelshapel.random.spring.boot.starter.randomizer.service.collection.impl.GenericCollectionRandomizer;
-import com.pavelshapel.random.spring.boot.starter.randomizer.service.factory.impl.GenericRandomizerFactory;
+import com.pavelshapel.random.spring.boot.starter.randomizer.service.collection.CollectionRandomizer;
+import com.pavelshapel.random.spring.boot.starter.randomizer.service.factory.RandomizerFactory;
+import com.pavelshapel.web.spring.boot.starter.wrapper.TypedResponseWrapperRestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
-@RestController
+@TypedResponseWrapperRestController
 @RequestMapping("/")
 public class RandomRestController {
     public static final String PATH_TYPE = "/{type:[[a-zA-Z]]+}";
     public static final String PATH_RANGE = "/{min:[\\d]+}/{max:[\\d]+}";
 
     @Autowired
-    private GenericRandomizerFactory genericRandomizerFactory;
+    private RandomizerFactory genericRandomizerFactory;
     @Autowired
-    private GenericCollectionRandomizer genericCollectionRandomizer;
+    private CollectionRandomizer genericCollectionRandomizer;
 
     @LogMethodResult
     @GetMapping(PATH_TYPE)
